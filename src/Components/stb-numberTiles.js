@@ -14,10 +14,11 @@ import CreateNumberTile from './stb-createNumberTile'
 
 class NumberTiles extends React.Component {
   render() {
+    console.log(this.props.validOptions)
    // Builds each campaign Card with fetched Campaign data
   //  if (this.props.topCampaignsArr.length > 0){}else{ }
 
-   let numberTiles = [1,2,3,4,5,6,7,8,9,10,11,12].map(num => <CreateNumberTile key={num} number={num} history={this.props.history}/>)
+   let numberTiles = [1,2,3,4,5,6,7,8,9,10,11,12].map(num => <CreateNumberTile key={num} number={num} history={this.props.history} numberClickHandler={this.props.numberClickHandler} />)
   return (
     <div>
       {numberTiles}

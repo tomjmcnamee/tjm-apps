@@ -16,13 +16,38 @@ class CreateNumberTile extends React.Component {
     })
   }
 
+
   
   render(){
+    let tileHTML = ""
     return (
-      <div className="NumberTile" data-tile-number={this.props.number}>
-        <img src="https://2.bp.blogspot.com/-3n-RvkRGmfU/UO_iCdvu5oI/AAAAAAAAEHA/ABNauhWa8Iw/s1600/maple-seamless_wood_texture.jpg" />
-        <div className="TileNumberText">{this.props.number}</div>
-        <p>{this.props.validOptions}</p>
+
+      <div>
+        {this.props.FirstRun
+          ?
+            <div className="NumberTile" data-tile-number={this.props.number} >
+              <img src="https://2.bp.blogspot.com/-3n-RvkRGmfU/UO_iCdvu5oI/AAAAAAAAEHA/ABNauhWa8Iw/s1600/maple-seamless_wood_texture.jpg" />
+              <div className="TileNumberText" >{this.props.number}</div>
+            </div>
+          :
+          this.props.NumberAvailable 
+            ?
+            this.props.NumberValidOption
+              ?
+                <div className="NumberTile" data-tile-number={this.props.number} onClick={() => this.props.numberClickHandler(this.props.number)}>
+                  <img src="https://2.bp.blogspot.com/-3n-RvkRGmfU/UO_iCdvu5oI/AAAAAAAAEHA/ABNauhWa8Iw/s1600/maple-seamless_wood_texture.jpg" />
+                  <div className="TileNumberText" >{this.props.number}</div>
+                </div>
+              :
+                <div className="NumberTile" data-tile-number={this.props.number}>
+                  <img src="https://2.bp.blogspot.com/-3n-RvkRGmfU/UO_iCdvu5oI/AAAAAAAAEHA/ABNauhWa8Iw/s1600/maple-seamless_wood_texture.jpg" />
+                  <div className="NotValidOption" >{this.props.number}</div>
+                </div>
+            :
+            <div className="NumberTile" data-tile-number={this.props.number} >
+              <img src="https://2.bp.blogspot.com/-3n-RvkRGmfU/UO_iCdvu5oI/AAAAAAAAEHA/ABNauhWa8Iw/s1600/maple-seamless_wood_texture.jpg" />
+            </div>
+        }
       </div>
       )// ends return
   }// ends render

@@ -9,23 +9,12 @@ class GameBoard extends React.Component {
     board: [1,2,3,4,5,6,7,8,9,10,11,12],
     oneClickIndex: null,
     comboArray: [],
-    currentRoll: 0
+    currentRoll: null
   }
   componentDidMount(){
     document.title = "TJM - Shut The Box"    
-    this.setValidOptions()
   }  // ends component did
 
-  setValidOptions = () => {
-    console.log("setvalidoptions run")
-    let tempComboArray = this.twoSum(this.state.board, this.props.stb_RollTotal)
-    if (!!this.state.board.indexOf(this.props.stb_RollTotal)) {
-      tempComboArray.push(this.props.RollTotal)
-    }
-    this.setState({
-      comboArray: tempComboArray
-    })
-  } // ends setValidoptions
 
   //The below output [] if no two numbers in an array add up to target
   //If 1 or more pair adds up to target, return will be [n1, n2, n3, n4]

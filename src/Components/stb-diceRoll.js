@@ -91,7 +91,8 @@ randomNumberClickHandler = () => {
     totalRolls: tempTotalRolls
   })
 
-  this.props.stb_RollTotal(this.state.die1 + this.state.die2)
+  // this.props.stb_RollTotal(this.state.die1 + this.state.die2)
+  this.props.rollHandler(tempdie1 + tempdie2)
 }
 
 
@@ -164,7 +165,7 @@ render() {
     return(
       <div>
         {/* <button onClick={this.randomNumberClickHaRandomizerndler}>Random Numbers</button> */}
-        <button onClick={this.randomNumberClickHandler}>Random Numbers</button>
+        <button onClick={this.randomNumberClickHandler}>Roll The Dice</button>
         {Dimage1}
         {Dimage2}
         <div id="RollStats" >
