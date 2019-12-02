@@ -22,6 +22,7 @@ class CreateNumberTile extends React.Component {
       <div className="NumberTile" data-tile-number={this.props.number}>
         <img src="https://2.bp.blogspot.com/-3n-RvkRGmfU/UO_iCdvu5oI/AAAAAAAAEHA/ABNauhWa8Iw/s1600/maple-seamless_wood_texture.jpg" />
         <div className="TileNumberText">{this.props.number}</div>
+        <p>{this.props.validOptions}</p>
       </div>
       )// ends return
   }// ends render

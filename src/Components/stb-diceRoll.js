@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import Randomizer from 'react-randomizer'
+import { stb_RollTotal } from '../actions'
 import D0 from '../images/D0.png'
 import D1 from '../images/D1.png'
 import D2 from '../images/D2.png'
@@ -88,6 +90,8 @@ randomNumberClickHandler = () => {
     six: tempsix,
     totalRolls: tempTotalRolls
   })
+
+  this.props.stb_RollTotal(this.state.die1 + this.state.die2)
 }
 
 
@@ -190,8 +194,17 @@ render() {
       </div> // closes parent div
     ) // closes RETURN
   } //closes RENDER
-
-
 }  // closes APP
 
-export default DiceRoll
+
+
+function mdp(dispatch) { 
+  return { 
+    stb_RollTotal: (rollSum) => dispatch(stb_RollTotal(rollSum))
+  }
+}
+
+{/* // this comes from reduct.js - K is local reference, V is foreign state attribute */}
+function msp(state) { return { stb_RollTotal: state.stb_RollTotal}}
+
+export default connect(msp, mdp)(DiceRoll)

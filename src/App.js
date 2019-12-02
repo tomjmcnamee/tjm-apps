@@ -7,7 +7,7 @@ import ShutTheBox from './Containers/ShutTheBox'
 class App extends React.Component {
 
   componentDidMount(){
-    document.title = "TJM - Shut The Box"    
+    document.title = "TJM - Games"    
   }  // ends component did
 
   render() {
