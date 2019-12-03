@@ -89,7 +89,8 @@ class ShutTheBox extends React.Component {
     this.setState({
       board: [1,2,3,4,5,6,7,8,9,10,11,12],
       comboArray: [],
-      rollSum: 0
+      rollSum: 0,
+      gameOver: false
     })
   }
   
