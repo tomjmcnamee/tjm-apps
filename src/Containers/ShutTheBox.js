@@ -160,7 +160,7 @@ render() {
     return(
 
       <div id="master-div">
-        <DiceRoll rollHandler={this.rollHandler} newGameHandler={this.newGameHandler} gameOver={this.state.gameOver} />
+        <DiceRoll rollHandler={this.rollHandler} newGameHandler={this.newGameHandler} gameOver={this.state.gameOver} board={this.state.board} />
        {this.numberTiles()}
       </div> // closes parent div
     ) // closes RETURN

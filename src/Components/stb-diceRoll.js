@@ -197,6 +197,8 @@ render() {
           <div id="dice" className="col">
             {Dimage1}
             {Dimage2}
+            {this.props.gameOver ? <h1>You Lose!</h1> : null }
+            {!this.props.gameOver && this.props.board.length == 0 ? <h1>You WIN!</h1> : null }
           </div>
           <div id="RollStats"  className="col">
             <h4>Roll Statistics</h4>
