@@ -23,10 +23,10 @@ class CreateNumberTile extends React.Component {
     return (
 
       <div>
-        {this.props.FirstRun
+        {this.props.FirstRun 
           ?
             <div className="NumberTile" data-tile-number={this.props.number} >
-              <img src="https://2.bp.blogspot.com/-3n-RvkRGmfU/UO_iCdvu5oI/AAAAAAAAEHA/ABNauhWa8Iw/s1600/maple-seamless_wood_texture.jpg" />
+              <img  className="WoodTile" src="https://2.bp.blogspot.com/-3n-RvkRGmfU/UO_iCdvu5oI/AAAAAAAAEHA/ABNauhWa8Iw/s1600/maple-seamless_wood_texture.jpg" />
               <div className="TileNumberText" >{this.props.number}</div>
             </div>
           :

@@ -9,9 +9,9 @@ import CreateNumberTile from '../Components/stb-createNumberTile'
 class ShutTheBox extends React.Component {
   state = {
     board: [1,2,3,4,5,6,7,8,9,10,11,12],
-    oneClickIndex: null,
     comboArray: [],
-    rollSum: 0
+    rollSum: 0,
+    gameOver: false
   }
   componentDidMount(){
     document.title = "TJM - Shut The Box"    
@@ -23,6 +23,9 @@ class ShutTheBox extends React.Component {
   youLose = () => {
     //function for when the player LOSES
     console.log("You Lose")
+    this.setState({
+      gameOver: true
+    })
   }
 
   youWin = () => {
@@ -61,7 +64,7 @@ class ShutTheBox extends React.Component {
   numberClickHandler = (number) => {
     // event.preventDefault()
     console.log("click handler", number)
-    if (this.state.comboArray[this.state.comboArray.length -1] == number) {
+    if (this.state.comboArray[this.state.comboArray.length -1] == number &&  this.state.comboArray.length%2 == 1) {
       let newBoard = this.state.board
       let indexToDel = newBoard.indexOf(number);
       newBoard.splice(indexToDel, 1);
@@ -82,6 +85,13 @@ class ShutTheBox extends React.Component {
     }
   }
   
+  newGameHandler = () => {
+    this.setState({
+      board: [1,2,3,4,5,6,7,8,9,10,11,12],
+      comboArray: [],
+      rollSum: 0
+    })
+  }
   
   
   numberTiles = () => { 
@@ -148,8 +158,8 @@ render() {
   
     return(
 
-      <div>
-        <DiceRoll rollHandler={this.rollHandler}/>
+      <div id="master-div">
+        <DiceRoll rollHandler={this.rollHandler} newGameHandler={this.newGameHandler} gameOver={this.state.gameOver} />
        {this.numberTiles()}
       </div> // closes parent div
     ) // closes RETURN

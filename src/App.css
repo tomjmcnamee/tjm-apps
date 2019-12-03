@@ -26,6 +26,15 @@
   position: relative;
   text-align: center;
   font-size: 100px;
+  display: table-cell;
+  float: left;
+  width: 8%;
+	border: 1px solid blue;
+}
+
+.WoodTile {
+  width: 100%;
+
 }
 
 .TileNumberText {

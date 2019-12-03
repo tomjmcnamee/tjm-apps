@@ -23,7 +23,7 @@ class DiceRoll extends React.Component {
     totalRolls: 0
   }
 
-randomNumberClickHandler = () => {
+rollDiceClickHandler = () => {
   let tempdie1 = Randomizer.randomNumber(1,6)
   let tempdie2 = Randomizer.randomNumber(1,6)
 
@@ -95,6 +95,20 @@ randomNumberClickHandler = () => {
   this.props.rollHandler(tempdie1 + tempdie2)
 }
 
+newGameClickHandler = () => {
+  this.setState({
+    die1: 0,
+    die2: 0,
+    one: 0,
+    two: 0,
+    three: 0,
+    four: 0,
+    five: 0,
+    six: 0,
+    totalRolls: 0
+  })
+  this.props.newGameHandler()
+}
 
 tempdoXtimes = (X) => {
   let tempone = this.state.one
@@ -163,35 +177,51 @@ render() {
 
   
     return(
-      <div>
-        {/* <button onClick={this.randomNumberClickHaRandomizerndler}>Random Numbers</button> */}
-        <button onClick={this.randomNumberClickHandler}>Roll The Dice</button>
-        {Dimage1}
-        {Dimage2}
-        <div id="RollStats" >
-          <h4>Roll Statistics</h4>
-          {this.state.totalRolls == 0 
-            ? 
-            <div>
-              <p>1: 0.00%</p>
-              <p>2: 0.00%</p>
-              <p>3: 0.00%</p>
-              <p>4: 0.00%</p>
-              <p>5 0.00%</p>
-              <p>6: 0.00%</p>
-            </div>
-            :
-            <div>
-              <p>1: {(this.state.one/(this.state.totalRolls*2)*100).toFixed(2)}%</p>
-              <p>2: {(this.state.two/(this.state.totalRolls*2)*100).toFixed(2)}%</p>
-              <p>3: {(this.state.three/(this.state.totalRolls*2)*100).toFixed(2)}%</p>
-              <p>4: {(this.state.four/(this.state.totalRolls*2)*100).toFixed(2)}%</p>
-              <p>5: {(this.state.five/(this.state.totalRolls*2)*100).toFixed(2)}%</p>
-              <p>6: {(this.state.six/(this.state.totalRolls*2)*100).toFixed(2)}%</p>
-            </div>
-          }
-          <p>Total Rolls {this.state.totalRolls}</p>
-        </div>
+      <div id="diceroll_parent" className="row">
+          <div id="gameoptions" className="col">
+            {/* <button onClick={this.randomNumberClickHaRandomizerndler}>Random Numbers</button> */}
+            {this.props.gameOver
+              ?
+              // <button type="button" class="btn btn-primary btn-lg" disabled >Roll The Dice</button>
+              <button type="button" class="btn btn-primary btn-lg btn-warning" onClick={this.newGameClickHandler}>Start New Game</button>
+              :
+              <button type="button" class="btn btn-primary btn-lg" onClick={this.rollDiceClickHandler}>Roll The Dice</button>
+            }
+            {/* {this.props.gameOver 
+              ?
+                <button type="button" class="btn btn-primary btn-lg btn-warning" onClick={this.newGameClickHandler}>Start New Game</button>
+                :
+                <button type="button" class="btn btn-primary btn-lg btn-warning" disabled >Start New Game</button>
+              } */}
+          </div>
+          <div id="dice" className="col">
+            {Dimage1}
+            {Dimage2}
+          </div>
+          <div id="RollStats"  className="col">
+            <h4>Roll Statistics</h4>
+            {this.state.totalRolls == 0 
+              ? 
+              <div>
+                <p>1: 0.00%<br />
+                2: 0.00%<br />
+                3: 0.00%<br />
+                4: 0.00%<br />
+                5: 0.00%<br />
+                6: 0.00%</p>
+              </div>
+              :
+              <div>
+                <p>1: {(this.state.one/(this.state.totalRolls*2)*100).toFixed(2)}%<br />
+                2: {(this.state.two/(this.state.totalRolls*2)*100).toFixed(2)}%<br />
+                3: {(this.state.three/(this.state.totalRolls*2)*100).toFixed(2)}%<br />
+                4: {(this.state.four/(this.state.totalRolls*2)*100).toFixed(2)}%<br />
+                5: {(this.state.five/(this.state.totalRolls*2)*100).toFixed(2)}%<br />
+                6: {(this.state.six/(this.state.totalRolls*2)*100).toFixed(2)}%</p>
+              </div>
+            }
+            <p>Total Rolls {this.state.totalRolls}</p>
+          </div>
       </div> // closes parent div
     ) // closes RETURN
   } //closes RENDER
