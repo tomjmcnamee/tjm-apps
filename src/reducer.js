@@ -2,73 +2,12 @@ import { combineReducers } from 'redux'
 
 let defaultState = {
   loggedInUserObj: {},
-  stb_gameDiceRolls: {
-    one: 0,
-    two: 0,
-    three: 0,
-    four: 0,
-    five: 0,
-    six: 0
-    },
-  stb_gameRollSums: {
-    two: 0,
-    three: 0,
-    four: 0,
-    five: 0,
-    six: 0,
-    seven: 0,
-    eight: 0,
-    nine: 0,
-    ten: 0,
-    eleven: 0,
-    twelve: 0,
-    totalRolls: 0
-    },
-  stb_userDiceRolls: {
-    one: 0,
-    two: 0,
-    three: 0,
-    four: 0,
-    five: 0,
-    six: 0
-    },
-  stb_userRollSums: {
-    two: 0,
-    three: 0,
-    four: 0,
-    five: 0,
-    six: 0,
-    seven: 0,
-    eight: 0,
-    nine: 0,
-    ten: 0,
-    eleven: 0,
-    twelve: 0,
-    totalRolls: 0
-    },
-  stb_allDiceRolls: {
-    one: 0,
-    two: 0,
-    three: 0,
-    four: 0,
-    five: 0,
-    six: 0
-    },
-  stb_allRollSums: {
-    two: 0,
-    three: 0,
-    four: 0,
-    five: 0,
-    six: 0,
-    seven: 0,
-    eight: 0,
-    nine: 0,
-    ten: 0,
-    eleven: 0,
-    twelve: 0,
-    totalRolls: 0
-  },
-
+  stb_gameDiceRolls: { one: 0,two: 0,three: 0,four: 0,five: 0,six: 0 },
+  stb_gameRollSums: {two: 0,three: 0,four: 0,five: 0,six: 0,seven: 0,eight: 0,nine: 0,ten: 0,eleven: 0,twelve: 0,totalRolls: 0},
+  stb_userDiceRolls: {one: 0,two: 0,three: 0,four: 0,five: 0,six: 0},
+  stb_userRollSums: {two: 0,three: 0,four: 0,five: 0,six: 0,seven: 0,eight: 0,nine: 0,ten: 0,eleven: 0,twelve: 0,totalRolls: 0},
+  stb_allDiceRolls: {one: 0,two: 0,three: 0,four: 0,five: 0,six: 0},
+  stb_allRollSums: {two: 0,three: 0,four: 0,five: 0,six: 0,seven: 0,eight: 0,nine: 0,ten: 0,eleven: 0,twelve: 0,totalRolls: 0  },
 }
 
 
@@ -144,7 +83,6 @@ function stb_allRollSumsReducer(state = defaultState.stb_allRollSums, action) {
       case "ADD ALL SUM":
           return {...state, ...action.payload}
       case "SET ALL ROLL SUM":
-        debugger
           return {...state, ...action.payload}
       default:
           return state

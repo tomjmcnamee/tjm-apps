@@ -109,52 +109,6 @@ newGameClickHandler = () => {
   this.props.newGameHandler()
 }
 
-tempdoXtimes = (X) => {
-  let tempone = this.state.one
-  let temptwo = 0
-  let tempthree = 0
-  let tempfour = 0
-  let tempfive = 0
-  let tempsix = 0
-  let i = 0
-  while (i < X) {
-    let temp = Randomizer.randomNumber(1,6)
-    switch (temp) {
-      case 1:
-        tempone += 1
-        break;
-      case 2:
-        temptwo += 1
-        break;
-      case 3:
-        tempthree += 1
-        break;
-      case 4:
-        tempfour += 1
-        break;
-      case 5:
-        tempfive += 1
-        break;
-      case 6:
-        tempsix += 1
-        break;
-      }
-      debugger
-      i++
-    }
-    this.setState ({
-      one: tempone,
-      two: temptwo,
-      three: tempthree,
-      four: tempfour,
-      five: tempfive,
-      six: tempsix
-    })
- 
-
-
-}
-
 
 render() {
   let Dimage1 = <img src={this.state.die1 == 1 ? D1 :
@@ -182,9 +136,14 @@ render() {
             {this.props.gameOver
               ?
               // <button type="button" class="btn btn-primary btn-lg" disabled >Roll The Dice</button>
-              <button type="button" class="btn btn-primary btn-lg btn-warning" onClick={this.newGameClickHandler}>Start New Game</button>
+                <button type="button" class="btn btn-primary btn-lg btn-warning" onClick={this.newGameClickHandler}>Start New Game</button>
               :
-              <button type="button" class="btn btn-primary btn-lg" onClick={this.rollDiceClickHandler}>Roll The Dice</button>
+                this.props.readyToRoll 
+                  ?
+                  <button type="button" class="btn btn-primary btn-lg" disabled>Roll The Dice</button>
+                  :
+                  <button type="button" class="btn btn-primary btn-lg" onClick={this.rollDiceClickHandler}>Roll The Dice</button>
+                
             }
             {/* {this.props.gameOver 
               ?

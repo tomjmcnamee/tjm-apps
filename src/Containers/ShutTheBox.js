@@ -116,7 +116,7 @@ render() {
     return(
 
       <div id="master-div">
-        <DiceRoll rollHandler={this.rollHandler} newGameHandler={this.newGameHandler} gameOver={this.state.gameOver} board={this.state.board} />
+        <DiceRoll rollHandler={this.rollHandler} newGameHandler={this.newGameHandler} gameOver={this.state.gameOver} board={this.state.board} readyToRoll={this.state.comboArray.length > 0} />
        {this.numberTiles()}
       </div> // closes parent div
     ) // closes RETURN
