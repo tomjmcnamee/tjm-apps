@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import Randomizer from 'react-randomizer'
-import { stb_RollTotal } from '../actions'
+import { stb_RollSum } from '../actions'
 import D0 from '../images/D0.png'
 import D1 from '../images/D1.png'
 import D2 from '../images/D2.png'
@@ -90,8 +90,7 @@ rollDiceClickHandler = () => {
     six: tempsix,
     totalRolls: tempTotalRolls
   })
-
-  // this.props.stb_RollTotal(this.state.die1 + this.state.die2)
+  this.props.stb_RollSum(tempdie1 + tempdie2, this.props.stb_gameRollSums, this.props.stb_userRollSums, this.props.stb_allRollSums)
   this.props.rollHandler(tempdie1 + tempdie2)
 }
 
@@ -233,11 +232,19 @@ render() {
 
 function mdp(dispatch) { 
   return { 
-    stb_RollTotal: (rollSum) => dispatch(stb_RollTotal(rollSum))
+    stb_RollSum: (rollSum, gameRollSum, userRollSum, allRollSum) => dispatch(stb_RollSum(rollSum, gameRollSum, userRollSum, allRollSum))
   }
 }
 
 {/* // this comes from reduct.js - K is local reference, V is foreign state attribute */}
-function msp(state) { return { stb_RollTotal: state.stb_RollTotal}}
+function msp(state) { return { 
+  stb_RollSum: state.stb_RollSum,
+  stb_gameDiceRolls: state.stb_gameDiceRolls,
+  stb_gameRollSums: state.stb_gameRollSums,
+  stb_userDiceRolls: state.stb_userDiceRolls,
+  stb_userRollSums: state.stb_userRollSums,
+  stb_allDiceRolls: state.stb_allDiceRolls,
+  stb_allRollSums: state.stb_allRollSums
+}}
 
 export default connect(msp, mdp)(DiceRoll)

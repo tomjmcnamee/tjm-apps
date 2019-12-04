@@ -3,6 +3,8 @@ import GameBoard from '../Components/stb-gameBoard'
 import NumberTiles from '../Components/stb-numberTiles'
 import DiceRoll from '../Components/stb-diceRoll'
 import CreateNumberTile from '../Components/stb-createNumberTile'
+import { connect } from 'react-redux'
+
 
 
 
@@ -168,5 +170,21 @@ render() {
 
 
 }  // closes APP
+function mdp(dispatch) { 
+  return { 
 
-export default ShutTheBox
+  }
+}
+
+{/* // this comes from reduct.js - K is local reference, V is foreign state attribute */}
+function msp(state) { return { 
+  stb_RollTotal: state.stb_RollTotal,
+  stb_gameDiceRolls: state.stb_gameDiceRolls,
+  stb_gameRollSums: state.stb_gameRollSums,
+  stb_userDiceRolls: state.stb_userDiceRolls,
+  stb_userRollSums: state.stb_userRollSums,
+  stb_allDiceRolls: state.stb_allDiceRolls,
+  stb_allRollSums: state.stb_allRollSums
+}}
+
+export default connect(msp, mdp)(ShutTheBox)
