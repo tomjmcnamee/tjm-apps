@@ -34,9 +34,9 @@ class GameBoard extends React.Component {
 
   render() {
       let comboArray = this.twoSum(this.state.board, this.props.stb_RollTotal)
-      if (!!this.state.board.indexOf(this.props.stb_RollTotal)) {
-          comboArray.push(this.props.RollTotal)
-          console.log("you still got moves!")
+      // if (!!this.state.board.indexOf(this.props.stb_RollTotal)) {
+      //     comboArray.push(this.props.RollTotal)
+      //     console.log("you still got moves!")
       // } else if (comboArray.length > 0 ) {
         // switch (comboArray.length) {
         //   case 2:
@@ -77,9 +77,9 @@ class GameBoard extends React.Component {
 
 
         //This is where I have to see if any TWO tiles add up to rollSum
-      } else {
-        this.props.youLose()
-      }
+      // } else {
+      //   this.props.youLose()
+      // }
   
     
 
@@ -103,6 +103,8 @@ function mdp(dispatch) {
 }
 
 {/* // this comes from reduct.js - K is local reference, V is foreign state attribute */}
-function msp(state) { return { stb_RollTotal: state.stb_RollTotal}}
+function msp(state) { return { 
+
+}}
 
 export default connect(msp, mdp)(GameBoard)

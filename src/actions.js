@@ -1,7 +1,104 @@
 
-// let backendURL = "http://localhost:3000/api/v1/"
+let backendURL = "http://localhost:3000/api/v1/"
 // let backendURL = "http://wethepromo-backend.herokuapp.com/api/v1/"
-let backendURL = process.env.REACT_APP_FETCH_LOCATION
+// let backendURL = process.env.REACT_APP_FETCH_LOCATION
+
+function signUp (userInfo, history) {
+  return function (dispatch) {
+  fetch(backendURL + "user", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      accepts: "application/json"
+    },
+    body: JSON.stringify({ user: userInfo })
+  })
+    .then(resp => resp.json())
+    .then(response => {
+      if (response.errors) {
+        alert(response.errors)
+      } else {
+        localStorage.setItem("token", response.token)
+        dispatch({ type: "LOG USER IN", payload: response.userObj })
+        dispatch({ type: "SET USER ROLL SUM", payload: response.userRollSums })
+        dispatch({ type: "SET USER DICE ROLLS", payload: response.userDiceRolls })
+        dispatch({ type: "SET ALL ROLL SUM", payload: response.allRollSums })
+        dispatch({ type: "SET ALL DICE ROLLS", payload: response.allDiceRolls })
+
+
+        // history.push("/BrowseCampaigns")
+      }
+    })
+  }  // Ends SignUp THUNK function
+} // ends SignUp funciton
+
+function logUserIn (path, accountCredentials, history) {
+  return function (dispatch) {
+    fetch(backendURL + path, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        accepts: "application/json"
+      },
+      body: JSON.stringify(accountCredentials)
+    })
+    .then(resp => resp.json())
+    .then(response => {
+        if (!!response.error) {
+          alert("incorrect email/password combination")
+          history.push("/LogIn")
+        } else {
+          localStorage.setItem("token", response.token)
+          dispatch({ type: "LOG USER IN", payload: response.userObj })
+          // history.push("/BrowseCampaigns")
+        }
+      })
+      .catch((error) => {
+        console.log("Log Users In action Error - ", error)
+      });
+    }
+  } // END LogUserIn function
+
+  function autoLogIn (history) {
+    return function (dispatch) {
+      if(localStorage.token == undefined || localStorage.token == "undefined"){
+      }else{
+        let token = localStorage.token
+        fetch( backendURL + "autologin", {
+          method: "GET",
+          headers: {
+            "content-type": "application/json",
+            accepts: "application/json",
+            Authorization: `${token}`
+          }
+        })
+          .then(resp => resp.json())
+          .then(response => {
+            if (response.status === "error") {
+              alert("incorrect email/password combination")
+              history.push("/LogIn")
+            } else {
+              dispatch({ type: "AUTO LOG USER IN", payload: response.userObj })
+              dispatch({ type: "SET USER ROLL SUM", payload: response.userRollSums })
+              dispatch({ type: "SET USER DICE ROLLS", payload: response.userDiceRolls })
+              dispatch({ type: "SET ALL ROLL SUM", payload: response.allRollSums })
+              dispatch({ type: "SET ALL DICE ROLLS", payload: response.allDiceRolls })            }
+        })
+        .catch((error) => {
+          console.log("autoLoginFETCHError", error)
+        });
+      }// ends IF statement about localstorage.token
+    } // ends Thunk middlewear function
+  } // END AutoLogIn function
+
+  function logOut (history) {
+    return function (dispatch) {
+      dispatch({ type: "LOG USER OUT", payload: {}})
+      localStorage.removeItem("token")
+      history.push("/about")
+    } // ends Thunk dispatch function
+  } // ends logOut function
+
 
 
 
@@ -78,11 +175,15 @@ return function (dispatch) {
         break;
     } // end switch
   }// Ends dispatch
-} // stb_RollTotal
+} // stb_RollSum
 
 
 
 
 export { 
+  signUp,
+  logUserIn,
+  autoLogIn,
+  logOut,
   stb_RollSum,
 }

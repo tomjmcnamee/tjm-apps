@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
 let defaultState = {
-  stb_RollTotal: null,
+  loggedInUserObj: {},
   stb_gameDiceRolls: {
     one: 0,
     two: 0,
@@ -72,14 +72,19 @@ let defaultState = {
 }
 
 
-function stb_RollTotalReducer(state = defaultState.stb_RollTotal, action) {
+function loggedInUserReducer(state = defaultState.loggedInUserObj, action) {
   switch (action.type) {
-      case "SET ROLL SUM":
+      case "LOG USER IN":
+          return action.payload
+      case "AUTO LOG USER IN":
+          return action.payload
+      case "LOG USER OUT":
           return action.payload
       default:
           return state
   }
-}
+} // ends loggedInUserReducer
+
 
 
 
@@ -105,6 +110,8 @@ function stb_userDiceRollsReducer(state = { ...defaultState.stb_userDiceRolls },
   switch (action.type) {
       case "SOMETHING":
           return action.payload
+      case "SET USER DICE ROLLS":
+          return {...state, ...action.payload}
       default:
           return state
   }
@@ -113,6 +120,8 @@ function stb_userDiceRollsReducer(state = { ...defaultState.stb_userDiceRolls },
 function stb_userRollSumsReducer(state = defaultState.stb_userRollSums, action) {
   switch (action.type) {
       case "ADD USER SUM":
+          return {...state, ...action.payload}
+      case "SET USER ROLL SUM":
           return {...state, ...action.payload}
       default:
           return state
@@ -123,6 +132,8 @@ function stb_allDiceRollsReducer(state = { ...defaultState.stb_allDiceRolls }, .
   switch (action.type) {
       case "SOMETHING":
           return action.payload
+      case "SET ALL DICE ROLLS":
+          return {...state, ...action.payload}
       default:
           return state
   }
@@ -131,6 +142,9 @@ function stb_allDiceRollsReducer(state = { ...defaultState.stb_allDiceRolls }, .
 function stb_allRollSumsReducer(state = defaultState.stb_allRollSums, action) {
   switch (action.type) {
       case "ADD ALL SUM":
+          return {...state, ...action.payload}
+      case "SET ALL ROLL SUM":
+        debugger
           return {...state, ...action.payload}
       default:
           return state
@@ -142,7 +156,7 @@ function stb_allRollSumsReducer(state = defaultState.stb_allRollSums, action) {
 
 
 let reducer = combineReducers({
-  stb_RollTotal: stb_RollTotalReducer,
+  loggedInUserObj: loggedInUserReducer,
   stb_gameDiceRolls: stb_gameDiceRollsReducer,
   stb_gameRollSums: stb_gameRollSumsReducer,
   stb_userDiceRolls: stb_userDiceRollsReducer,

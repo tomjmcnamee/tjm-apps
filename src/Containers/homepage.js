@@ -9,7 +9,7 @@ import { logUserIn, logOut, autoLogIn } from '../actions'
 
 
 
-class ShutTheBox extends React.Component {
+class Homepage extends React.Component {
   state = {
     board: [1,2,3,4,5,6,7,8,9,10,11,12],
     comboArray: [],
@@ -18,6 +18,7 @@ class ShutTheBox extends React.Component {
   }
   componentDidMount(){
     document.title = "TJM - Shut The Box" 
+    this.props.autoLogIn()   
   }  // ends component did
 
 
@@ -111,7 +112,16 @@ class ShutTheBox extends React.Component {
   }
 
 render() {
+  console.log("comboarr = ", this.state.comboArray)
 
+
+
+
+
+        //This is where I have to see if any TWO tiles add up to rollSum
+      // } else {
+      //   this.props.youLose()
+      // }
   
     return(
 
@@ -132,13 +142,7 @@ function mdp(dispatch) {
 
 {/* // this comes from reduct.js - K is local reference, V is foreign state attribute */}
 function msp(state) { return { 
-  loggedInUserObj: state.loggedInUserObj,
-  stb_gameDiceRolls: state.stb_gameDiceRolls,
-  stb_gameRollSums: state.stb_gameRollSums,
-  stb_userDiceRolls: state.stb_userDiceRolls,
-  stb_userRollSums: state.stb_userRollSums,
-  stb_allDiceRolls: state.stb_allDiceRolls,
-  stb_allRollSums: state.stb_allRollSums
+
 }}
 
-export default connect(msp, mdp)(ShutTheBox)
+export default connect(msp, mdp)(Homepage)
