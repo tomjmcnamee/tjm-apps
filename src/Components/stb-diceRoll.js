@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import Randomizer from 'react-randomizer'
-import { stb_RollSum } from '../actions'
+import { stb_RollSum, stb_DiceRoll } from '../actions'
 import D0 from '../images/D0.png'
 import D1 from '../images/D1.png'
 import D2 from '../images/D2.png'
@@ -27,8 +27,7 @@ class DiceRoll extends React.Component {
     let tempdie1 = Randomizer.randomNumber(1,6)
   let tempdie2 = Randomizer.randomNumber(1,6)
   
-  this.props.stb_RollSum(tempdie1 + tempdie2, this.props.stb_gameRollSums, this.props.stb_userRollSums, this.props.stb_allRollSums)
-
+  
   let tempone = this.state.one
   let temptwo = this.state.two
   let tempthree = this.state.three
@@ -57,7 +56,7 @@ class DiceRoll extends React.Component {
       ++tempsix
       break;
     }
-
+    
     switch (tempdie2) {
       case 1:
         ++tempone
@@ -77,20 +76,22 @@ class DiceRoll extends React.Component {
       case 6:
         ++tempsix
         break;
-      }
-      tempTotalRolls = this.state.totalRolls + 1
-      
-  this.setState({
-    die1: tempdie1,
-    die2: tempdie2,
-    one: tempone,
-    two: temptwo,
-    three: tempthree,
+        }
+        tempTotalRolls = this.state.totalRolls + 1
+        
+        this.setState({
+          die1: tempdie1,
+          die2: tempdie2,
+          one: tempone,
+          two: temptwo,
+          three: tempthree,
     four: tempfour,
     five: tempfive,
     six: tempsix,
     totalRolls: tempTotalRolls
   })
+  this.props.stb_DiceRoll(tempdie1, tempdie2, this.props.stb_gameDiceRolls, this.props.stb_userDiceRolls, this.props.stb_allDiceRolls)
+  this.props.stb_RollSum(tempdie1 + tempdie2, this.props.stb_gameRollSums, this.props.stb_userRollSums, this.props.stb_allRollSums)
   this.props.rollHandler(tempdie1, tempdie2)
 }
 
@@ -191,7 +192,8 @@ render() {
 
 function mdp(dispatch) { 
   return { 
-    stb_RollSum: (rollSum, gameRollSum, userRollSum, allRollSum) => dispatch(stb_RollSum(rollSum, gameRollSum, userRollSum, allRollSum))
+    stb_RollSum: (rollSum, gameRollSum, userRollSum, allRollSum) => dispatch(stb_RollSum(rollSum, gameRollSum, userRollSum, allRollSum)),
+    stb_DiceRoll: (die1, die2, gameDiceRolls, userDiceRolls, allDiceRolls) => dispatch(stb_DiceRoll(die1, die2, gameDiceRolls, userDiceRolls, allDiceRolls))
   }
 }
 

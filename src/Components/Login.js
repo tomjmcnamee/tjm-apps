@@ -15,7 +15,7 @@ class LogIn extends React.Component {
     }
   
     // loggedIn = () => localStorage.token === undefined ? null : localStorage.token == "undefined" ? localStorage.removeItem("token") : this.props.history.push("/userhome") 
-    loggedIn = () => localStorage.token === undefined ? null : this.props.history.push("/userhome") 
+    loggedIn = () => localStorage.token === undefined ? null : this.props.history.push("/") 
         
 
     fieldChangeHandler = (event) => {

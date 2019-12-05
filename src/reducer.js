@@ -27,10 +27,10 @@ function loggedInUserReducer(state = defaultState.loggedInUserObj, action) {
 
 
 
-function stb_gameDiceRollsReducer(state = { ...defaultState.stb_gameDiceRolls }, ...action) {
+function stb_gameDiceRollsReducer(state = defaultState.stb_gameDiceRolls, action) {
   switch (action.type) {
-      case "ADD ROLL":
-          return action.payload
+      case "ADD GAME ROLL":
+          return {...state, ...action.payload}
       default:
           return state
   }
@@ -47,10 +47,10 @@ function stb_gameRollSumsReducer(state = defaultState.stb_gameRollSums, action) 
   }
 } // ends stb_gameRollSumsReducer
 
-function stb_userDiceRollsReducer(state = { ...defaultState.stb_userDiceRolls }, ...action) {
+function stb_userDiceRollsReducer(state = defaultState.stb_userDiceRolls, action) {
   switch (action.type) {
-      case "SOMETHING":
-          return action.payload
+      case "ADD USER ROLL":
+          return {...state, ...action.payload}
       case "SET USER DICE ROLLS":
           return {...state, ...action.payload}
       default:
@@ -69,10 +69,10 @@ function stb_userRollSumsReducer(state = defaultState.stb_userRollSums, action) 
   }
 } // ends stb_userRollSumsReducer
 
-function stb_allDiceRollsReducer(state = { ...defaultState.stb_allDiceRolls }, ...action) {
+function stb_allDiceRollsReducer(state = defaultState.stb_allDiceRolls, action) {
   switch (action.type) {
-      case "SOMETHING":
-          return action.payload
+      case "ADD ALL ROLL":
+          return {...state, ...action.payload}
       case "SET ALL DICE ROLLS":
           return {...state, ...action.payload}
       default:

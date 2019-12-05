@@ -59,37 +59,37 @@ function logUserIn (path, accountCredentials, history) {
     }
   } // END LogUserIn function
 
-  function autoLogIn (history) {
-    return function (dispatch) {
-      if(localStorage.token == undefined || localStorage.token == "undefined"){
-      }else{
-        let token = localStorage.token
-        fetch( backendURL + "autologin", {
-          method: "GET",
-          headers: {
-            "content-type": "application/json",
-            accepts: "application/json",
-            Authorization: `${token}`
-          }
-        })
-          .then(resp => resp.json())
-          .then(response => {
-            if (response.status === "error") {
-              alert("incorrect email/password combination")
-              history.push("/LogIn")
-            } else {
-              dispatch({ type: "AUTO LOG USER IN", payload: response.userObj })
-              dispatch({ type: "SET USER ROLL SUM", payload: response.userRollSums })
-              dispatch({ type: "SET USER DICE ROLLS", payload: response.userDiceRolls })
-              dispatch({ type: "SET ALL ROLL SUM", payload: response.allRollSums })
-              dispatch({ type: "SET ALL DICE ROLLS", payload: response.allDiceRolls })            }
-        })
-        .catch((error) => {
-          console.log("autoLoginFETCHError", error)
-        });
-      }// ends IF statement about localstorage.token
-    } // ends Thunk middlewear function
-  } // END AutoLogIn function
+function autoLogIn (history) {
+  return function (dispatch) {
+    if(localStorage.token == undefined || localStorage.token == "undefined"){
+    }else{
+      let token = localStorage.token
+      fetch( backendURL + "autologin", {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          accepts: "application/json",
+          Authorization: `${token}`
+        }
+      })
+        .then(resp => resp.json())
+        .then(response => {
+          if (response.status === "error") {
+            // alert("incorrect email/password combination")
+            // history.push("/LogIn")
+          } else {
+            dispatch({ type: "AUTO LOG USER IN", payload: response.userObj })
+            dispatch({ type: "SET USER ROLL SUM", payload: response.userRollSums })
+            dispatch({ type: "SET USER DICE ROLLS", payload: response.userDiceRolls })
+            dispatch({ type: "SET ALL ROLL SUM", payload: response.allRollSums })
+            dispatch({ type: "SET ALL DICE ROLLS", payload: response.allDiceRolls })            }
+      })
+      .catch((error) => {
+        console.log("autoLoginFETCHError", error)
+      });
+    }// ends IF statement about localstorage.token
+  } // ends Thunk middlewear function
+} // END AutoLogIn function
 
   function logOut (history) {
     return function (dispatch) {
@@ -102,123 +102,154 @@ function logUserIn (path, accountCredentials, history) {
 
 
 
-// function addNewCampaignObj (campaignObjId, history) {
-//   return function (dispatch) {
-//     fetch(backendURL + "campaigns/" + campaignObjId)
-//     .then( resp => resp.json())
-//     .then(( campaignObj ) => {
-//       dispatch({ type: "SET SELECTED CAMPAIGN", payload: campaignObj })
-//       dispatch({ type: "ADD NEW CAMPAIGN TO TOP CAMPAIGNS ARR", payload: campaignObj })
-      
-//     })
-//   } //end function dispatch
-// } // end setSelectedCampaignAndContributions function
-
 
 function stb_RollSum(rollSum, gameRollSums, userRollSums, allRollSums) {
-return function (dispatch) {  
+  let number = ""
   switch (rollSum) {
-    case 2:   
-      dispatch({ type: "ADD GAME SUM", payload: {two: gameRollSums["two"]+1, totalRolls: gameRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD USER SUM", payload: {two: userRollSums["two"]+1, totalRolls: userRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD ALL SUM", payload: {two: allRollSums["two"]+1, totalRolls: allRollSums["totalRolls"]+1} })
+    case 2: number = "two"
       break;
-    case 3:
-      dispatch({ type: "ADD GAME SUM", payload: {three: gameRollSums["three"]+1, totalRolls: gameRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD USER SUM", payload: {three: userRollSums["three"]+1, totalRolls: userRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD ALL SUM", payload: {three: allRollSums["three"]+1, totalRolls: allRollSums["totalRolls"]+1} })
-        break;
-    case 4:
-      dispatch({ type: "ADD GAME SUM", payload: {four: gameRollSums["four"]+1, totalRolls: gameRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD USER SUM", payload: {four: userRollSums["four"]+1, totalRolls: userRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD ALL SUM", payload: {four: allRollSums["four"]+1, totalRolls: allRollSums["totalRolls"]+1} })
-        break;
-    case 5:
-      dispatch({ type: "ADD GAME SUM", payload: {five: gameRollSums["five"]+1, totalRolls: gameRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD USER SUM", payload: {five: userRollSums["five"]+1, totalRolls: userRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD ALL SUM", payload: {five: allRollSums["five"]+1, totalRolls: allRollSums["totalRolls"]+1} })
-        break;
-    case 6:
-      dispatch({ type: "ADD GAME SUM", payload: {six: gameRollSums["six"]+1, totalRolls: gameRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD USER SUM", payload: {six: userRollSums["six"]+1, totalRolls: userRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD ALL SUM", payload: {six: allRollSums["six"]+1, totalRolls: allRollSums["totalRolls"]+1} })
-        break;
-    case 7:
-      dispatch({ type: "ADD GAME SUM", payload: {seven: gameRollSums["seven"]+1, totalRolls: gameRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD USER SUM", payload: {seven: userRollSums["seven"]+1, totalRolls: userRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD ALL SUM", payload: {seven: allRollSums["seven"]+1, totalRolls: allRollSums["totalRolls"]+1} })
+    case 3: number = "three"
       break;
-    case 8:
-      dispatch({ type: "ADD GAME SUM", payload: {eight: gameRollSums["eight"]+1, totalRolls: gameRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD USER SUM", payload: {eight: userRollSums["eight"]+1, totalRolls: userRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD ALL SUM", payload: {eight: allRollSums["eight"]+1, totalRolls: allRollSums["totalRolls"]+1} })
+    case 4: number = "four"
         break;
-    case 9:
-      dispatch({ type: "ADD GAME SUM", payload: {nine: gameRollSums["nine"]+1, totalRolls: gameRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD USER SUM", payload: {nine: userRollSums["nine"]+1, totalRolls: userRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD ALL SUM", payload: {nine: allRollSums["nine"]+1, totalRolls: allRollSums["totalRolls"]+1} })
+    case 5: number = "five"
         break;
-    case 10:
-      dispatch({ type: "ADD GAME SUM", payload: {ten: gameRollSums["ten"]+1, totalRolls: gameRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD USER SUM", payload: {ten: userRollSums["ten"]+1, totalRolls: userRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD ALL SUM", payload: {ten: allRollSums["ten"]+1, totalRolls: allRollSums["totalRolls"]+1} })
+    case 6: number = "six"
+      break;
+    case 7: number = "seven"
+      break;
+    case 8: number = "eight"
         break;
-    case 11:
-      dispatch({ type: "ADD GAME SUM", payload: {eleven: gameRollSums["eleven"]+1, totalRolls: gameRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD USER SUM", payload: {eleven: userRollSums["eleven"]+1, totalRolls: userRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD ALL SUM", payload: {eleven: allRollSums["eleven"]+1, totalRolls: allRollSums["totalRolls"]+1} })
+    case 9: number = "nine"
         break;
-    case 12:
-      dispatch({ type: "ADD GAME SUM", payload: {twelve: gameRollSums["twelve"]+1, totalRolls: gameRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD USER SUM", payload: {twelve: userRollSums["twelve"]+1, totalRolls: userRollSums["totalRolls"]+1} })
-      dispatch({ type: "ADD ALL SUM", payload: {twelve: allRollSums["twelve"]+1, totalRolls: allRollSums["totalRolls"]+1} })
+    case 10: number = "ten"
         break;
+    case 11: number = "eleven"
+        break;
+    case 12: number = "twelve"
+      break;
     } // end switch
-  }// Ends dispatch
+    return function (dispatch) {  
+      dispatch({ type: "ADD GAME SUM", payload: {[number]: gameRollSums[number]+1, totalRolls: gameRollSums["totalRolls"]+1} })
+      dispatch({ type: "ADD USER SUM", payload: {[number]: userRollSums[number]+1, totalRolls: userRollSums["totalRolls"]+1} })
+      dispatch({ type: "ADD ALL SUM", payload: {[number]: allRollSums[number]+1, totalRolls: allRollSums["totalRolls"]+1} })
+    }// Ends dispatch
 } // stb_RollSum
 
 
+function stb_DiceRoll(die1, die2, gameDiceRolls, userDiceRolls, allDiceRolls) {
+return function (dispatch) { 
+  let dienum1 = ""
+  let dienum2 = ""
+  switch (die1) {
+    case 1: dienum1 = "one"
+      break;
+    case 2: dienum1 = "two"
+      break;
+    case 3: dienum1 = "three"
+      break;
+    case 4: dienum1 = "four"
+      break;
+    case 5: dienum1 = "five"
+      break;
+    case 6: dienum1 = "six"
+      break;
+  } // ends die1 switch statement
+  if (die1 === die2) {
+    dispatch({ type: "ADD GAME ROLL", payload: {[dienum1]: gameDiceRolls[dienum1]+2} })
+    dispatch({ type: "ADD USER ROLL", payload: {[dienum1]: userDiceRolls[dienum1]+2} })
+    dispatch({ type: "ADD ALL ROLL", payload: {[dienum1]: allDiceRolls[dienum1]+2} })
+  }  else {
+    switch (die2) {
+      case 1: dienum2 = "one"
+        break;
+      case 2: dienum2 = "two"
+        break;
+      case 3: dienum2 = "three"
+        break;
+      case 4: dienum2 = "four"
+        break;
+      case 5: dienum2 = "five"
+        break;
+      case 6: dienum2 = "six"
+        break;
+    } // ends Switch for dieNum2
+    dispatch({ type: "ADD GAME ROLL", payload: {[dienum1]: gameDiceRolls[dienum1]+1, [dienum2]: gameDiceRolls[dienum2]+1} })
+    dispatch({ type: "ADD USER ROLL", payload: {[dienum1]: userDiceRolls[dienum1]+1, [dienum2]: userDiceRolls[dienum2]+1} })
+    dispatch({ type: "ADD ALL ROLL", payload: {[dienum1]: allDiceRolls[dienum1]+1, [dienum2]: allDiceRolls[dienum2]+1} })
+  } // ends ELSE
+  
+  }// Ends dispatch
+} // stb_DiceRoll
 
-function stb_commitGameToHistory (userId, gameDiceRolls, gameDiceSums, die1, die2) {
-  let sums = ""
+
+
+function stb_commitLosingGameToHistory (userId, gameDiceRolls, gameDiceSums, die1, die2) {
+  let number = ""
   switch(die1 + die2) {
-    case 2:
-        sums = {...gameDiceSums, two: gameDiceSums["two"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+    case 2: number = "two"
       break;
-    case 3:
-        sums = {...gameDiceSums, three: gameDiceSums["three"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+    case 3: number = "three"
       break;
-    case 4:
-        sums = {...gameDiceSums, four: gameDiceSums["four"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+    case 4: number = "four"
       break;
-    case 5:
-        sums = {...gameDiceSums, five: gameDiceSums["five"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+    case 5: number = "five"
       break;
-    case 6:
-        sums = {...gameDiceSums, six: gameDiceSums["six"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+    case 6: number = "six"
       break;
-    case 7:
-        sums = {...gameDiceSums, seven: gameDiceSums["seven"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+    case 7: number = "seven"
       break;
-    case 8:
-        sums = {...gameDiceSums, eight: gameDiceSums["eight"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+    case 8: number = "eight"
       break;
-    case 9:
-        sums = {...gameDiceSums, nine: gameDiceSums["nine"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+    case 9: number = "nine"
       break;
-    case 10:
-        sums = {...gameDiceSums, ten: gameDiceSums["ten"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+    case 10: number = "ten"
       break;
-    case 11:
-        sums = {...gameDiceSums, eleven: gameDiceSums["eleven"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+    case 11: number = "eleven"
       break;
-    case 12:
-        sums = {...gameDiceSums, twelve: gameDiceSums["twelve"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+    case 12: number = "twelve"
       break;
   }
-  let rolls = { ...gameDiceRolls, user_id: userId}
-  // let sums = {...gameDiceSums, key: gameDiceSums[number] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
-  let game = {user_id: userId, win: false}
+
+  let dienum1 = ""
+  let dienum2 = ""
+  let rolls = {}
+  switch (die1) {
+    case 1: dienum1 = "one"
+      break;
+    case 2: dienum1 = "two"
+      break;
+    case 3: dienum1 = "three"
+      break;
+    case 4: dienum1 = "four"
+      break;
+    case 5: dienum1 = "five"
+      break;
+    case 6: dienum1 = "six"
+      break;
+  } // ends die1 switch statement
+  if (die1 === die2) {
+    rolls = {...gameDiceRolls, [dienum1]: gameDiceRolls[dienum1] + 2}
+  }  else {
+    switch (die2) {
+      case 1: dienum2 = "one"
+        break;
+      case 2: dienum2 = "two"
+        break;
+      case 3: dienum2 = "three"
+        break;
+      case 4: dienum2 = "four"
+        break;
+      case 5: dienum2 = "five"
+        break;
+      case 6: dienum2 = "six"
+        break;
+      } // ends Switch for Die2
+      rolls = {...gameDiceRolls, [dienum1]: gameDiceRolls[dienum1] + 1, [dienum2]: gameDiceRolls[dienum2] + 1}
+  } /// ends ELSE statement
+
+  let sums = {...gameDiceSums, [number]: gameDiceSums[number] + 1, totalRolls: gameDiceSums["totalRolls"] + 1}
+  let game = {wins: 0, losses: 1}
   return function (dispatch) {
   fetch(backendURL + "stb-commitgame", {
     method: "POST",
@@ -226,19 +257,20 @@ function stb_commitGameToHistory (userId, gameDiceRolls, gameDiceSums, die1, die
       "content-type": "application/json",
       accepts: "application/json"
     },
-    body: JSON.stringify({ shut_the_box_game: game, shut_the_box_dice_roll: rolls, shut_the_box_roll_sum: sums })
+    body: JSON.stringify({ user_id: userId, shut_the_box_game: game, shut_the_box_dice_roll: rolls, shut_the_box_roll_sum: sums })
   })
     .then(resp => resp.json())
     .then(response => {
       if (response.errors) {
         alert(response.errors)
       } else {
+        console.log(response)
         dispatch({ type: "SET GAME SUM", payload: {two: 0,three: 0,four: 0,five: 0,six: 0,seven: 0,eight: 0,nine: 0,ten: 0,eleven: 0,twelve: 0,totalRolls: 0} })
         dispatch({ type: "SET GAME DICE ROLL", payload: { one: 0,two: 0,three: 0,four: 0,five: 0,six: 0 } })
       }
     })
-  }  // Ends SignUp THUNK function
-} // ends SignUp funciton
+  }  // Ends stb_commitLosingGameToHistory THUNK function
+} // ends stb_commitLosingGameToHistory funciton
 
 
 
@@ -248,5 +280,6 @@ export {
   autoLogIn,
   logOut,
   stb_RollSum,
-  stb_commitGameToHistory,
+  stb_DiceRoll,
+  stb_commitLosingGameToHistory,
 }

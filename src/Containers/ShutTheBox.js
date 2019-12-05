@@ -4,7 +4,7 @@ import NumberTiles from '../Components/stb-numberTiles'
 import DiceRoll from '../Components/stb-diceRoll'
 import CreateNumberTile from '../Components/stb-createNumberTile'
 import { connect } from 'react-redux'
-import { stb_commitGameToHistory, stb_RollSum } from '../actions'
+import { stb_commitLosingGameToHistory } from '../actions'
 
 
 
@@ -30,7 +30,7 @@ class ShutTheBox extends React.Component {
     this.setState({
       gameOver: true
     })
-    this.props.stb_commitGameToHistory(this.props.loggedInUserObj.id, this.props.stb_gameDiceRolls, this.props.stb_gameRollSums, die1, die2)
+    this.props.stb_commitLosingGameToHistory(this.props.loggedInUserObj.id = 1, this.props.stb_gameDiceRolls, this.props.stb_gameRollSums, die1, die2)
   }
 
   youWin = () => {
@@ -51,7 +51,6 @@ class ShutTheBox extends React.Component {
   } // ends twoSum function 
 
   rollHandler = (die1, die2) => {
-    // this.props.stb_RollSum(rollSum, this.props.stb_gameRollSums, this.props.stb_userRollSums, this.props.stb_allRollSums)
     let newComboArray = this.twoSum(this.state.board, die1 + die2)
     if (this.state.board.indexOf(die1 + die2) > -1) {
       newComboArray.push(die1 + die2)
@@ -128,8 +127,7 @@ render() {
 }  // closes APP
 function mdp(dispatch) { 
   return { 
-    stb_commitGameToHistory: (a, b, c,die1, die2) => dispatch(stb_commitGameToHistory(a, b, c, die1, die2)),
-    stb_RollSum: (rollSum, gameRollSum, userRollSum, allRollSum) => dispatch(stb_RollSum(rollSum, gameRollSum, userRollSum, allRollSum))
+    stb_commitLosingGameToHistory: (a, b, c,die1, die2) => dispatch(stb_commitLosingGameToHistory(a, b, c, die1, die2)),
 
   }
 }
