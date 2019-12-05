@@ -40,6 +40,8 @@ function stb_gameRollSumsReducer(state = defaultState.stb_gameRollSums, action) 
   switch (action.type) {
       case "ADD GAME SUM":
           return {...state, ...action.payload}
+      case "SET GAME SUM":
+          return {...state, ...action.payload}
       default:
           return state
   }

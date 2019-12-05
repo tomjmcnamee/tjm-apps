@@ -179,6 +179,68 @@ return function (dispatch) {
 
 
 
+function stb_commitGameToHistory (userId, gameDiceRolls, gameDiceSums, die1, die2) {
+  let sums = ""
+  switch(die1 + die2) {
+    case 2:
+        sums = {...gameDiceSums, two: gameDiceSums["two"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+      break;
+    case 3:
+        sums = {...gameDiceSums, three: gameDiceSums["three"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+      break;
+    case 4:
+        sums = {...gameDiceSums, four: gameDiceSums["four"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+      break;
+    case 5:
+        sums = {...gameDiceSums, five: gameDiceSums["five"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+      break;
+    case 6:
+        sums = {...gameDiceSums, six: gameDiceSums["six"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+      break;
+    case 7:
+        sums = {...gameDiceSums, seven: gameDiceSums["seven"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+      break;
+    case 8:
+        sums = {...gameDiceSums, eight: gameDiceSums["eight"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+      break;
+    case 9:
+        sums = {...gameDiceSums, nine: gameDiceSums["nine"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+      break;
+    case 10:
+        sums = {...gameDiceSums, ten: gameDiceSums["ten"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+      break;
+    case 11:
+        sums = {...gameDiceSums, eleven: gameDiceSums["eleven"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+      break;
+    case 12:
+        sums = {...gameDiceSums, twelve: gameDiceSums["twelve"] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+      break;
+  }
+  let rolls = { ...gameDiceRolls, user_id: userId}
+  // let sums = {...gameDiceSums, key: gameDiceSums[number] + 1, totalRolls: gameDiceSums["totalRolls"] + 1, user_id: userId}
+  let game = {user_id: userId, win: false}
+  return function (dispatch) {
+  fetch(backendURL + "stb-commitgame", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      accepts: "application/json"
+    },
+    body: JSON.stringify({ shut_the_box_game: game, shut_the_box_dice_roll: rolls, shut_the_box_roll_sum: sums })
+  })
+    .then(resp => resp.json())
+    .then(response => {
+      if (response.errors) {
+        alert(response.errors)
+      } else {
+        dispatch({ type: "SET GAME SUM", payload: {two: 0,three: 0,four: 0,five: 0,six: 0,seven: 0,eight: 0,nine: 0,ten: 0,eleven: 0,twelve: 0,totalRolls: 0} })
+        dispatch({ type: "SET GAME DICE ROLL", payload: { one: 0,two: 0,three: 0,four: 0,five: 0,six: 0 } })
+      }
+    })
+  }  // Ends SignUp THUNK function
+} // ends SignUp funciton
+
+
 
 export { 
   signUp,
@@ -186,4 +248,5 @@ export {
   autoLogIn,
   logOut,
   stb_RollSum,
+  stb_commitGameToHistory,
 }

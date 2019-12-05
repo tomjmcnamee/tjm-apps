@@ -22,10 +22,12 @@ class DiceRoll extends React.Component {
     six: 0,
     totalRolls: 0
   }
-
-rollDiceClickHandler = () => {
-  let tempdie1 = Randomizer.randomNumber(1,6)
+  
+  rollDiceClickHandler = () => {
+    let tempdie1 = Randomizer.randomNumber(1,6)
   let tempdie2 = Randomizer.randomNumber(1,6)
+  
+  this.props.stb_RollSum(tempdie1 + tempdie2, this.props.stb_gameRollSums, this.props.stb_userRollSums, this.props.stb_allRollSums)
 
   let tempone = this.state.one
   let temptwo = this.state.two
@@ -34,7 +36,7 @@ rollDiceClickHandler = () => {
   let tempfive = this.state.five
   let tempsix = this.state.six
   let tempTotalRolls = this.state.totalRolls
-
+  
   switch (tempdie1) {
     case 1:
       ++tempone
@@ -78,7 +80,6 @@ rollDiceClickHandler = () => {
       }
       tempTotalRolls = this.state.totalRolls + 1
       
-
   this.setState({
     die1: tempdie1,
     die2: tempdie2,
@@ -90,8 +91,7 @@ rollDiceClickHandler = () => {
     six: tempsix,
     totalRolls: tempTotalRolls
   })
-  this.props.stb_RollSum(tempdie1 + tempdie2, this.props.stb_gameRollSums, this.props.stb_userRollSums, this.props.stb_allRollSums)
-  this.props.rollHandler(tempdie1 + tempdie2)
+  this.props.rollHandler(tempdie1, tempdie2)
 }
 
 newGameClickHandler = () => {

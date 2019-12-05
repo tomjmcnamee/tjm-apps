@@ -4,7 +4,8 @@ import NumberTiles from '../Components/stb-numberTiles'
 import DiceRoll from '../Components/stb-diceRoll'
 import CreateNumberTile from '../Components/stb-createNumberTile'
 import { connect } from 'react-redux'
-import { logUserIn, logOut, autoLogIn } from '../actions'
+import { stb_commitGameToHistory, stb_RollSum } from '../actions'
+
 
 
 
@@ -23,12 +24,13 @@ class ShutTheBox extends React.Component {
 
 
 
-  youLose = () => {
+  youLose = (die1, die2) => {
     //function for when the player LOSES
     console.log("You Lose")
     this.setState({
       gameOver: true
     })
+    this.props.stb_commitGameToHistory(this.props.loggedInUserObj.id, this.props.stb_gameDiceRolls, this.props.stb_gameRollSums, die1, die2)
   }
 
   youWin = () => {
@@ -48,18 +50,18 @@ class ShutTheBox extends React.Component {
     return result;
   } // ends twoSum function 
 
-  rollHandler = (rollSum) => {
-    console.log("roll handler -rollsum: ", rollSum)
-    let newComboArray = this.twoSum(this.state.board, rollSum)
-    if (this.state.board.indexOf(rollSum) > -1) {
-      newComboArray.push(rollSum)
+  rollHandler = (die1, die2) => {
+    // this.props.stb_RollSum(rollSum, this.props.stb_gameRollSums, this.props.stb_userRollSums, this.props.stb_allRollSums)
+    let newComboArray = this.twoSum(this.state.board, die1 + die2)
+    if (this.state.board.indexOf(die1 + die2) > -1) {
+      newComboArray.push(die1 + die2)
     }
-    if (newComboArray.length == 0) {
-      this.youLose()
+    if (newComboArray.length === 0) {
+      this.youLose(die1, die2)
     } else {
       this.setState({
         comboArray: newComboArray,
-        rollSum: rollSum
+        rollSum: die1 + die2
       })
     }
   } // closes rollHandler
@@ -126,6 +128,8 @@ render() {
 }  // closes APP
 function mdp(dispatch) { 
   return { 
+    stb_commitGameToHistory: (a, b, c,die1, die2) => dispatch(stb_commitGameToHistory(a, b, c, die1, die2)),
+    stb_RollSum: (rollSum, gameRollSum, userRollSum, allRollSum) => dispatch(stb_RollSum(rollSum, gameRollSum, userRollSum, allRollSum))
 
   }
 }
