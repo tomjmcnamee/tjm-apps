@@ -34,7 +34,7 @@ changeRadio = (event) => {
 
 render() {
     return(
-<div>
+<div >
   <div className="custom-control custom-radio custom-control-inline">
     <input type="radio" className="custom-control-input" id="showDiceRolls" name="showDiceRolls" checked={this.state.statsView === "showDiceRolls"} onChange={this.changeRadio}/>
     <label className="custom-control-label" for="showDiceRolls">Show Dice Rolls</label>

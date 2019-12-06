@@ -24,9 +24,7 @@ function signUp (userInfo, history) {
         dispatch({ type: "SET USER DICE ROLLS", payload: response.userDiceRolls })
         dispatch({ type: "SET ALL ROLL SUM", payload: response.allRollSums })
         dispatch({ type: "SET ALL DICE ROLLS", payload: response.allDiceRolls })
-
-
-        // history.push("/BrowseCampaigns")
+        history.push("/ShutTheBox")
       }
     })
   }  // Ends SignUp THUNK function

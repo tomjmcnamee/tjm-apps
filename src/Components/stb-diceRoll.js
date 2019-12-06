@@ -11,6 +11,7 @@ import D4 from '../images/D4.png'
 import D5 from '../images/D5.png'
 import D6 from '../images/D6.png'
 
+
 class DiceRoll extends React.Component {
   state = {
     die1: 0,
@@ -24,11 +25,14 @@ class DiceRoll extends React.Component {
     totalRolls: 0
   }
 
-  document.body.onkeyup = function(e){
-    if(e.keyCode == 32){
-        rollDiceClickHandler()
-    }
-}
+
+  // componentWillReceiveProps( { keydown } ) {
+  //   if ( keydown ) {
+  //     // inspect the keydown event and decide what to do
+  //     console.log( keydown.which );
+  //   }
+  // }
+
   
   rollDiceClickHandler = () => {
     let tempdie1 = Randomizer.randomNumber(1,6)
@@ -117,6 +121,29 @@ newGameClickHandler = () => {
   this.props.newGameHandler()
 }
 
+//--- THESE NEXT 3 METHODS ARE FOR THE SPACEBAR KEYPRESS
+componentWillMount() {
+  document.addEventListener("keydown", this.onKeyPressedNewGame.bind(this));
+  document.addEventListener("keydown", this.onKeyPressedRoll.bind(this));
+}
+
+componentWillUnmount() {
+  document.removeEventListener("keydown", this.onKeyPressedNewGame.bind(this));
+  document.removeEventListener("keydown", this.onKeyPressedRoll.bind(this));
+}      
+
+onKeyPressedRoll(e) {
+  if (e.keyCode == 32 && !this.props.readyToRoll && !this.props.gameOver){
+    this.rollDiceClickHandler()
+  }
+}
+onKeyPressedNewGame(e) {
+  if (e.keyCode == 32 && !this.props.readyToRoll && this.props.gameOver){
+    this.newGameClickHandler()
+  }
+}
+//---- PREVIOUS THREE MEHTODS FOR SPACEBAR KEYPRESS
+
 
 render() {
   let Dimage1 = <img src={this.state.die1 == 1 ? D1 :
@@ -144,13 +171,18 @@ render() {
             {this.props.gameOver
               ?
               // <button type="button" className="btn btn-primary btn-lg" disabled >Roll The Dice</button>
-                <button type="button" className="btn btn-primary btn-lg btn-warning" onClick={this.newGameClickHandler}>Start New Game</button>
+                <button type="button" className="btn btn-primary btn-lg btn-warning" onKeyDown={(e) => this.onKeyPressedRoll(e)} tabIndex="0" onClick={this.newGameClickHandler}>Start New Game</button>
               :
                 this.props.readyToRoll 
                   ?
-                  <button type="button" className="btn btn-primary btn-lg" disabled>Roll The Dice</button>
+                  // <button type="button" className="btn btn-primary btn-lg" disabled>Roll The Dice</button>
+                  null
                   :
-                  <button type="button" className="btn btn-primary btn-lg" onClick={this.rollDiceClickHandler}>Roll The Dice</button>
+                  <>
+                  <button type="button" className="btn btn-primary btn-lg" onKeyDown={(e) => this.onKeyPressedRoll(e)} tabIndex="0" onClick={this.rollDiceClickHandler}>Click To Roll The Dice</button>
+                  <h5>*or hit spacebar*</h5>
+                  </>
+
                 
             }
             {/* {this.props.gameOver 
@@ -160,10 +192,13 @@ render() {
                 <button type="button" className="btn btn-primary btn-lg btn-warning" disabled >Start New Game</button>
               } */}
           </div>
-          <div id="dice" className="col">
+          <div id="dice" className="col ">
             {Dimage1}
             {Dimage2}
             {this.props.gameOver && this.props.board.length > 0 ? <h1>You Lose!</h1> : null }
+
+              {!this.props.gameOver && this.props.readyToRoll ? <h5 className="d-flex align-items-end flex-column">Click up to two valid numbers that total the above sum.</h5> : null }
+
           </div>
           <div id="RollStats"  className="col">
             <RollStats />

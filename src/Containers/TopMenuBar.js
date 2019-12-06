@@ -29,10 +29,13 @@ class TopMenuBar extends React.Component {
   render() {
     // Determine if Log In or Log Out button
     let topButton = ""
+    let welcomeMessage = ""
     if ((localStorage.token === undefined || localStorage.token === "undefined" ) || (this.props.loggedInUserObj === undefined || this.props.loggedInUserObj.id === undefined)) {
       topButton =  <a href="/LogIn" > <button>Log In or Sign Up</button> </a>
+      welcomeMessage = <h6>You are currently playing under the Guest account  {topButton}</h6>
    } else {
-      topButton = <button onClick={this.logOutHandler}  >Log Out</button> 
+      topButton = <button onClick={this.logOutHandler}  >Log Out</button>
+      welcomeMessage =  <h6 id="welcomeBackInHeader" >Welcome back, {this.props.loggedInUserObj.first_name}   {topButton} </h6>
    }
 
 
@@ -41,8 +44,8 @@ class TopMenuBar extends React.Component {
       <div>
         <div id="userNameAndbutton">
           {/* {this.props.loggedInUserObj === undefined || this.props.loggedInUserObj.id === undefined ? null : <h1 id="welcomeBackInHeader" >Welcome back, {this.props.loggedInUserObj.first_name} </h1>} */}
-          <h1 id="welcomeBackInHeader" >Welcome back, {this.props.loggedInUserObj.first_name} </h1>
-          {topButton}
+          {welcomeMessage}
+
         </div>
       </div>
 

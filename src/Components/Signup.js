@@ -101,7 +101,7 @@ class SignUp extends React.Component {
     render () {
         return(
 
-          <div name="PAGE DIV" id="SignUpPrimaryDiv" className="ui grid">
+          <div name="PAGE DIV" id="SignUpPrimaryDiv" className="ui grid background">
             <div className="five wide column"  >
             </div>
             <div className="six wide column"  id="SignUpCenterDiv" >
