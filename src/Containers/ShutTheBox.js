@@ -4,7 +4,7 @@ import NumberTiles from '../Components/stb-numberTiles'
 import DiceRoll from '../Components/stb-diceRoll'
 import CreateNumberTile from '../Components/stb-createNumberTile'
 import { connect } from 'react-redux'
-import { stb_commitLosingGameToHistory } from '../actions'
+import { stb_commitLosingGameToHistory, stb_commitWinningGameToHistory } from '../actions'
 
 
 
@@ -15,7 +15,8 @@ class ShutTheBox extends React.Component {
     board: [1,2,3,4,5,6,7,8,9,10,11,12],
     comboArray: [],
     rollSum: 0,
-    gameOver: false
+    gameOver: false,
+    gameWon: false
   }
   componentDidMount(){
     document.title = "TJM - Shut The Box" 
@@ -34,7 +35,13 @@ class ShutTheBox extends React.Component {
   }
 
   youWin = () => {
-    //function for when the player WINS
+    console.log("You WIN!")
+    this.setState({
+      board: [],
+      gameOver: true,
+      gameWon: true
+    })
+    this.props.stb_commitWinningGameToHistory(this.props.loggedInUserObj.id, this.props.stb_gameDiceRolls, this.props.stb_gameRollSums)
   }
 
   twoSum = function (arr, target) {
@@ -67,26 +74,34 @@ class ShutTheBox extends React.Component {
 
   numberClickHandler = (number) => {
     // event.preventDefault()
-    console.log("click handler", number)
     if (this.state.comboArray[this.state.comboArray.length -1] == number &&  this.state.comboArray.length%2 == 1) {
       let newBoard = this.state.board
       let indexToDel = newBoard.indexOf(number);
       newBoard.splice(indexToDel, 1);
-      this.setState({
-        board: newBoard,
-        comboArray: []
-      })
+      if (newBoard.length === 0) {
+        this.youWin()
+      } else {
+        this.setState({
+          board: newBoard,
+          comboArray: []
+        })
+      }
     } else {
       let newBoard = this.state.board
       let indexToDel = newBoard.indexOf(number);
       newBoard.splice(indexToDel, 1);
-      let newComboArray = [this.state.rollSum - number]
-      this.setState({
-        board: newBoard,
-        comboArray: newComboArray,
-      })
+      if (newBoard.length === 0) {
+        this.youWin()
+      } else {
+        let newComboArray = [this.state.rollSum - number]
+        this.setState({
+          board: newBoard,
+          comboArray: newComboArray,
+        })
+      }
 
     }
+    
   }
   
   newGameHandler = () => {
@@ -94,7 +109,8 @@ class ShutTheBox extends React.Component {
       board: [1,2,3,4,5,6,7,8,9,10,11,12],
       comboArray: [],
       rollSum: 0,
-      gameOver: false
+      gameOver: false,
+      gameWon: false
     })
   }
   
@@ -108,7 +124,8 @@ class ShutTheBox extends React.Component {
       NumberAvailable={this.state.board.includes(num)}
       NumberValidOption={this.state.comboArray.includes(num)}
       FirstRun={this.state.rollSum == 0}
-      numberClickHandler={this.numberClickHandler} />)
+      numberClickHandler={this.numberClickHandler}
+      gameWon={this.state.gameWon} />)
   }
 
 render() {
@@ -128,6 +145,7 @@ render() {
 function mdp(dispatch) { 
   return { 
     stb_commitLosingGameToHistory: (a, b, c,die1, die2) => dispatch(stb_commitLosingGameToHistory(a, b, c, die1, die2)),
+    stb_commitWinningGameToHistory: (a, b, c) => dispatch(stb_commitWinningGameToHistory(a, b, c)),
 
   }
 }

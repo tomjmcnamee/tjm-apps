@@ -19,14 +19,49 @@ class CreateNumberTile extends React.Component {
 
   
   render(){
-    let tileHTML = ""
+    let tileHTML = "https://2.bp.blogspot.com/-3n-RvkRGmfU/UO_iCdvu5oI/AAAAAAAAEHA/ABNauhWa8Iw/s1600/maple-seamless_wood_texture.jpg"
+    let winText = ""
+    switch (this.props.number) {
+      case 1: winText = ""
+        break;
+        case 2: winText = "Y"
+        break;
+        case 3: winText = "O"
+        break;
+        case 4: winText = "U"
+        break;
+        case 5: winText = ""
+        break;
+        case 6: winText = "W"
+        break;
+        case 7: winText = "I"
+        break;
+        case 8: winText = "N"
+        break;
+        case 9: winText = "!"
+        break;
+        case 10: winText = "!"
+        break;
+        case 11: winText = "!"
+        break;
+        case 12: winText = ""
+        break;
+    }
+
     return (
 
       <div>
-        {this.props.FirstRun 
+        {this.props.gameWon 
+          ? 
+          <div className="NumberTile" data-tile-number={this.props.number}>
+          <img src={tileHTML} />
+          <div className="NotValidOption" >{winText}</div>
+        </div>
+          :
+            this.props.FirstRun 
           ?
             <div className="NumberTile" data-tile-number={this.props.number} >
-              <img  className="WoodTile" src="https://2.bp.blogspot.com/-3n-RvkRGmfU/UO_iCdvu5oI/AAAAAAAAEHA/ABNauhWa8Iw/s1600/maple-seamless_wood_texture.jpg" />
+              <img  className="WoodTile" src={tileHTML} />
               <div className="TileNumberText" >{this.props.number}</div>
             </div>
           :
@@ -35,17 +70,17 @@ class CreateNumberTile extends React.Component {
             this.props.NumberValidOption
               ?
                 <div className="NumberTile" data-tile-number={this.props.number} onClick={() => this.props.numberClickHandler(this.props.number)}>
-                  <img src="https://2.bp.blogspot.com/-3n-RvkRGmfU/UO_iCdvu5oI/AAAAAAAAEHA/ABNauhWa8Iw/s1600/maple-seamless_wood_texture.jpg" />
+                  <img src={tileHTML} />
                   <div className="TileNumberText" >{this.props.number}</div>
                 </div>
               :
                 <div className="NumberTile" data-tile-number={this.props.number}>
-                  <img src="https://2.bp.blogspot.com/-3n-RvkRGmfU/UO_iCdvu5oI/AAAAAAAAEHA/ABNauhWa8Iw/s1600/maple-seamless_wood_texture.jpg" />
+                  <img src={tileHTML} />
                   <div className="NotValidOption" >{this.props.number}</div>
                 </div>
             :
             <div className="NumberTile" data-tile-number={this.props.number} >
-              <img src="https://2.bp.blogspot.com/-3n-RvkRGmfU/UO_iCdvu5oI/AAAAAAAAEHA/ABNauhWa8Iw/s1600/maple-seamless_wood_texture.jpg" />
+              <img src={tileHTML} />
             </div>
         }
       </div>

@@ -113,6 +113,22 @@ function autoLogIn (history) {
 
   function logOut (history) {
     return function (dispatch) {
+      fetch( backendURL + "stb-guestrollhistory")
+        .then(resp => resp.json())
+        .then(response => {
+          if (response.status === "error") {
+            // alert("incorrect email/password combination")
+            // history.push("/LogIn")
+          } else {
+            dispatch({ type: "SET USER ROLL SUM", payload: response.userRollSums })
+            dispatch({ type: "SET USER DICE ROLLS", payload: response.userDiceRolls })
+            dispatch({ type: "SET ALL ROLL SUM", payload: response.allRollSums })
+            dispatch({ type: "SET ALL DICE ROLLS", payload: response.allDiceRolls })            }
+          })
+          .catch((error) => {
+            console.log("autoLoginFETCHError", error)
+          });
+          
       dispatch({ type: "LOG USER OUT", payload: { first_name: "Guest", id: 1}})
       localStorage.removeItem("token")
       history.push("/shutthebox")
@@ -289,11 +305,36 @@ function stb_commitLosingGameToHistory (userId, gameDiceRolls, gameDiceSums, die
       } else {
         console.log(response)
         dispatch({ type: "SET GAME SUM", payload: {two: 0,three: 0,four: 0,five: 0,six: 0,seven: 0,eight: 0,nine: 0,ten: 0,eleven: 0,twelve: 0,totalRolls: 0} })
-        dispatch({ type: "SET GAME DICE ROLL", payload: { one: 0,two: 0,three: 0,four: 0,five: 0,six: 0 } })
+        dispatch({ type: "SET GAME ROLL", payload: { one: 0,two: 0,three: 0,four: 0,five: 0,six: 0 } })
       }
     })
   }  // Ends stb_commitLosingGameToHistory THUNK function
 } // ends stb_commitLosingGameToHistory funciton
+
+
+function stb_commitWinningGameToHistory (userId, gameDiceRolls, gameDiceSums) {
+  let game = {wins: 1, losses: 0}
+  return function (dispatch) {
+  fetch(backendURL + "stb-commitgame", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      accepts: "application/json"
+    },
+    body: JSON.stringify({ user_id: userId, shut_the_box_game: game, shut_the_box_dice_roll: gameDiceRolls, shut_the_box_roll_sum: gameDiceSums })
+  })
+    .then(resp => resp.json())
+    .then(response => {
+      if (response.errors) {
+        alert(response.errors)
+      } else {
+        console.log(response)
+        dispatch({ type: "SET GAME SUM", payload: {two: 0,three: 0,four: 0,five: 0,six: 0,seven: 0,eight: 0,nine: 0,ten: 0,eleven: 0,twelve: 0,totalRolls: 0} })
+        dispatch({ type: "SET GAME ROLL", payload: { one: 0,two: 0,three: 0,four: 0,five: 0,six: 0 } })
+      }
+    })
+  }  // Ends stb_commitWinningGameToHistory THUNK function
+} // ends stb_commitWinningGameToHistory funciton
 
 
 
@@ -305,4 +346,5 @@ export {
   stb_RollSum,
   stb_DiceRoll,
   stb_commitLosingGameToHistory,
+  stb_commitWinningGameToHistory,
 }

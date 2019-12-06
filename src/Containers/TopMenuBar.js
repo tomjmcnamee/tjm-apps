@@ -34,14 +34,20 @@ class TopMenuBar extends React.Component {
    } else {
       topButton = <button onClick={this.logOutHandler}  >Log Out</button> 
    }
+
+
   
     return (
       <div>
         <div id="userNameAndbutton">
-          {this.props.loggedInUserObj === undefined || this.props.loggedInUserObj.id === undefined ? null : <h1 id="welcomeBackInHeader" >Welcome back, {this.props.loggedInUserObj.first_name} </h1>}
+          {/* {this.props.loggedInUserObj === undefined || this.props.loggedInUserObj.id === undefined ? null : <h1 id="welcomeBackInHeader" >Welcome back, {this.props.loggedInUserObj.first_name} </h1>} */}
+          <h1 id="welcomeBackInHeader" >Welcome back, {this.props.loggedInUserObj.first_name} </h1>
           {topButton}
         </div>
       </div>
+
+
+
 
   
   )} // ends Return and Render

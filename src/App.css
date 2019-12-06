@@ -54,3 +54,12 @@
   color: red;
 
 }
+
+.StatSingleDiceContainer p {
+  padding: 0 0 0 40%;
+  text-align: left
+}
+.StatDoubleDiceContainer p {
+  padding: 0 0 0 10%;
+  text-align: left
+}

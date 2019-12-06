@@ -23,6 +23,12 @@ class DiceRoll extends React.Component {
     six: 0,
     totalRolls: 0
   }
+
+  document.body.onkeyup = function(e){
+    if(e.keyCode == 32){
+        rollDiceClickHandler()
+    }
+}
   
   rollDiceClickHandler = () => {
     let tempdie1 = Randomizer.randomNumber(1,6)
@@ -157,8 +163,7 @@ render() {
           <div id="dice" className="col">
             {Dimage1}
             {Dimage2}
-            {this.props.gameOver ? <h1>You Lose!</h1> : null }
-            {!this.props.gameOver && this.props.board.length == 0 ? <h1>You WIN!</h1> : null }
+            {this.props.gameOver && this.props.board.length > 0 ? <h1>You Lose!</h1> : null }
           </div>
           <div id="RollStats"  className="col">
             <RollStats />
