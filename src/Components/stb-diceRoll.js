@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import Randomizer from 'react-randomizer'
 import { stb_RollSum, stb_DiceRoll } from '../actions'
+import RollStats from './stb-RollStats'
 import D0 from '../images/D0.png'
 import D1 from '../images/D1.png'
 import D2 from '../images/D2.png'
@@ -132,7 +133,7 @@ render() {
   
     return(
       <div id="diceroll_parent" className="row">
-          <div id="gameoptions" className="col">
+          <div id="gameoptions" className="col-2">
             {/* <button onClick={this.randomNumberClickHaRandomizerndler}>Random Numbers</button> */}
             {this.props.gameOver
               ?
@@ -160,28 +161,7 @@ render() {
             {!this.props.gameOver && this.props.board.length == 0 ? <h1>You WIN!</h1> : null }
           </div>
           <div id="RollStats"  className="col">
-            <h4>Roll Statistics</h4>
-            {this.state.totalRolls == 0 
-              ? 
-              <div>
-                <p>1: 0.00%<br />
-                2: 0.00%<br />
-                3: 0.00%<br />
-                4: 0.00%<br />
-                5: 0.00%<br />
-                6: 0.00%</p>
-              </div>
-              :
-              <div>
-                <p>1: {(this.state.one/(this.state.totalRolls*2)*100).toFixed(2)}%<br />
-                2: {(this.state.two/(this.state.totalRolls*2)*100).toFixed(2)}%<br />
-                3: {(this.state.three/(this.state.totalRolls*2)*100).toFixed(2)}%<br />
-                4: {(this.state.four/(this.state.totalRolls*2)*100).toFixed(2)}%<br />
-                5: {(this.state.five/(this.state.totalRolls*2)*100).toFixed(2)}%<br />
-                6: {(this.state.six/(this.state.totalRolls*2)*100).toFixed(2)}%</p>
-              </div>
-            }
-            <p>Total Rolls {this.state.totalRolls}</p>
+            <RollStats totalRolls={this.state.totalRolls} />
           </div>
       </div> // closes parent div
     ) // closes RETURN

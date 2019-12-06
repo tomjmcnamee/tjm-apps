@@ -29,7 +29,7 @@ class TopMenuBar extends React.Component {
   render() {
     // Determine if Log In or Log Out button
     let topButton = ""
-    if (this.props.loggedInUserObj === undefined || this.props.loggedInUserObj.id === undefined) {
+    if ((localStorage.token === undefined || localStorage.token === "undefined" ) || (this.props.loggedInUserObj === undefined || this.props.loggedInUserObj.id === undefined)) {
       topButton =  <a href="/LogIn" > <button>Log In or Sign Up</button> </a>
    } else {
       topButton = <button onClick={this.logOutHandler}  >Log Out</button> 

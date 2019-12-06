@@ -50,7 +50,7 @@ function logUserIn (path, accountCredentials, history) {
         } else {
           localStorage.setItem("token", response.token)
           dispatch({ type: "LOG USER IN", payload: response.userObj })
-          // history.push("/BrowseCampaigns")
+          history.push("/ShutTheBox")
         }
       })
       .catch((error) => {
@@ -93,9 +93,9 @@ function autoLogIn (history) {
 
   function logOut (history) {
     return function (dispatch) {
-      dispatch({ type: "LOG USER OUT", payload: {}})
+      dispatch({ type: "LOG USER OUT", payload: { first_name: "Guest", id: 1}})
       localStorage.removeItem("token")
-      history.push("/about")
+      history.push("/shutthebox")
     } // ends Thunk dispatch function
   } // ends logOut function
 
