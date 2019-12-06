@@ -4,6 +4,8 @@ let defaultState = {
   loggedInUserObj: { first_name: "Guest", id: 1},
   stb_gameDiceRolls: { one: 0,two: 0,three: 0,four: 0,five: 0,six: 0 },
   stb_gameRollSums: {two: 0,three: 0,four: 0,five: 0,six: 0,seven: 0,eight: 0,nine: 0,ten: 0,eleven: 0,twelve: 0,totalRolls: 0},
+  stb_sessionDiceRolls: { one: 0,two: 0,three: 0,four: 0,five: 0,six: 0 },
+  stb_sessionRollSums: {two: 0,three: 0,four: 0,five: 0,six: 0,seven: 0,eight: 0,nine: 0,ten: 0,eleven: 0,twelve: 0,totalRolls: 0},
   stb_userDiceRolls: {one: 0,two: 0,three: 0,four: 0,five: 0,six: 0},
   stb_userRollSums: {two: 0,three: 0,four: 0,five: 0,six: 0,seven: 0,eight: 0,nine: 0,ten: 0,eleven: 0,twelve: 0,totalRolls: 0},
   stb_allDiceRolls: {one: 0,two: 0,three: 0,four: 0,five: 0,six: 0},
@@ -46,6 +48,26 @@ function stb_gameRollSumsReducer(state = defaultState.stb_gameRollSums, action) 
           return state
   }
 } // ends stb_gameRollSumsReducer
+
+function stb_sessionDiceRollsReducer(state = defaultState.stb_sessionDiceRolls, action) {
+  switch (action.type) {
+      case "ADD SESSION ROLL":
+          return {...state, ...action.payload}
+      default:
+          return state
+  }
+} // ends stb_sessionDiceRollsReducer
+
+function stb_sessionRollSumsReducer(state = defaultState.stb_sessionRollSums, action) {
+  switch (action.type) {
+      case "ADD SESSION SUM":
+          return {...state, ...action.payload}
+      case "SET SESSION SUM":
+          return {...state, ...action.payload}
+      default:
+          return state
+  }
+} // ends stb_sessionRollSumsReducer
 
 function stb_userDiceRollsReducer(state = defaultState.stb_userDiceRolls, action) {
   switch (action.type) {
@@ -99,6 +121,8 @@ let reducer = combineReducers({
   loggedInUserObj: loggedInUserReducer,
   stb_gameDiceRolls: stb_gameDiceRollsReducer,
   stb_gameRollSums: stb_gameRollSumsReducer,
+  stb_sessionDiceRolls: stb_sessionDiceRollsReducer,
+  stb_sessionRollSums: stb_sessionRollSumsReducer,
   stb_userDiceRolls: stb_userDiceRollsReducer,
   stb_userRollSums: stb_userRollSumsReducer,
   stb_allDiceRolls: stb_allDiceRollsReducer,

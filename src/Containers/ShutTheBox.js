@@ -30,7 +30,7 @@ class ShutTheBox extends React.Component {
     this.setState({
       gameOver: true
     })
-    this.props.stb_commitLosingGameToHistory(this.props.loggedInUserObj.id = 1, this.props.stb_gameDiceRolls, this.props.stb_gameRollSums, die1, die2)
+    this.props.stb_commitLosingGameToHistory(this.props.loggedInUserObj.id, this.props.stb_gameDiceRolls, this.props.stb_gameRollSums, die1, die2)
   }
 
   youWin = () => {

@@ -26,7 +26,7 @@ class LogIn extends React.Component {
 
     formSubmitHandler = (event) => {
         event.preventDefault()
-        this.props.logUserIn("login", this.state, this.props.history)
+        this.props.logUserIn(this.state, this.props.history)
     }
     
 

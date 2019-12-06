@@ -91,8 +91,8 @@ class DiceRoll extends React.Component {
     six: tempsix,
     totalRolls: tempTotalRolls
   })
-  this.props.stb_DiceRoll(tempdie1, tempdie2, this.props.stb_gameDiceRolls, this.props.stb_userDiceRolls, this.props.stb_allDiceRolls)
-  this.props.stb_RollSum(tempdie1 + tempdie2, this.props.stb_gameRollSums, this.props.stb_userRollSums, this.props.stb_allRollSums)
+  this.props.stb_DiceRoll(tempdie1, tempdie2, this.props.stb_gameDiceRolls, this.props.stb_sessionDiceRolls, this.props.stb_userDiceRolls, this.props.stb_allDiceRolls)
+  this.props.stb_RollSum(tempdie1 + tempdie2, this.props.stb_gameRollSums, this.props.stb_sessionRollSums, this.props.stb_userRollSums, this.props.stb_allRollSums)
   this.props.rollHandler(tempdie1, tempdie2)
 }
 
@@ -133,25 +133,25 @@ render() {
   
     return(
       <div id="diceroll_parent" className="row">
-          <div id="gameoptions" className="col-2">
+          <div id="gameoptions" className="col">
             {/* <button onClick={this.randomNumberClickHaRandomizerndler}>Random Numbers</button> */}
             {this.props.gameOver
               ?
-              // <button type="button" class="btn btn-primary btn-lg" disabled >Roll The Dice</button>
-                <button type="button" class="btn btn-primary btn-lg btn-warning" onClick={this.newGameClickHandler}>Start New Game</button>
+              // <button type="button" className="btn btn-primary btn-lg" disabled >Roll The Dice</button>
+                <button type="button" className="btn btn-primary btn-lg btn-warning" onClick={this.newGameClickHandler}>Start New Game</button>
               :
                 this.props.readyToRoll 
                   ?
-                  <button type="button" class="btn btn-primary btn-lg" disabled>Roll The Dice</button>
+                  <button type="button" className="btn btn-primary btn-lg" disabled>Roll The Dice</button>
                   :
-                  <button type="button" class="btn btn-primary btn-lg" onClick={this.rollDiceClickHandler}>Roll The Dice</button>
+                  <button type="button" className="btn btn-primary btn-lg" onClick={this.rollDiceClickHandler}>Roll The Dice</button>
                 
             }
             {/* {this.props.gameOver 
               ?
-                <button type="button" class="btn btn-primary btn-lg btn-warning" onClick={this.newGameClickHandler}>Start New Game</button>
+                <button type="button" className="btn btn-primary btn-lg btn-warning" onClick={this.newGameClickHandler}>Start New Game</button>
                 :
-                <button type="button" class="btn btn-primary btn-lg btn-warning" disabled >Start New Game</button>
+                <button type="button" className="btn btn-primary btn-lg btn-warning" disabled >Start New Game</button>
               } */}
           </div>
           <div id="dice" className="col">
@@ -161,7 +161,7 @@ render() {
             {!this.props.gameOver && this.props.board.length == 0 ? <h1>You WIN!</h1> : null }
           </div>
           <div id="RollStats"  className="col">
-            <RollStats totalRolls={this.state.totalRolls} />
+            <RollStats />
           </div>
       </div> // closes parent div
     ) // closes RETURN
@@ -172,8 +172,8 @@ render() {
 
 function mdp(dispatch) { 
   return { 
-    stb_RollSum: (rollSum, gameRollSum, userRollSum, allRollSum) => dispatch(stb_RollSum(rollSum, gameRollSum, userRollSum, allRollSum)),
-    stb_DiceRoll: (die1, die2, gameDiceRolls, userDiceRolls, allDiceRolls) => dispatch(stb_DiceRoll(die1, die2, gameDiceRolls, userDiceRolls, allDiceRolls))
+    stb_RollSum: (rollSum, gameRollSum, sessionRollSum, userRollSum, allRollSum) => dispatch(stb_RollSum(rollSum, gameRollSum, sessionRollSum, userRollSum, allRollSum)),
+    stb_DiceRoll: (die1, die2, gameDiceRolls, sessionRollSum, userDiceRolls, allDiceRolls) => dispatch(stb_DiceRoll(die1, die2, gameDiceRolls, sessionRollSum, userDiceRolls, allDiceRolls))
   }
 }
 
@@ -182,6 +182,8 @@ function msp(state) { return {
   stb_RollSum: state.stb_RollSum,
   stb_gameDiceRolls: state.stb_gameDiceRolls,
   stb_gameRollSums: state.stb_gameRollSums,
+  stb_sessionDiceRolls: state.stb_sessionDiceRolls,
+  stb_sessionRollSums: state.stb_sessionRollSums,
   stb_userDiceRolls: state.stb_userDiceRolls,
   stb_userRollSums: state.stb_userRollSums,
   stb_allDiceRolls: state.stb_allDiceRolls,

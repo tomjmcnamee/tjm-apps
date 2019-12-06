@@ -32,9 +32,9 @@ function signUp (userInfo, history) {
   }  // Ends SignUp THUNK function
 } // ends SignUp funciton
 
-function logUserIn (path, accountCredentials, history) {
+function logUserIn (accountCredentials, history) {
   return function (dispatch) {
-    fetch(backendURL + path, {
+    fetch(backendURL + "login", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -50,6 +50,10 @@ function logUserIn (path, accountCredentials, history) {
         } else {
           localStorage.setItem("token", response.token)
           dispatch({ type: "LOG USER IN", payload: response.userObj })
+          dispatch({ type: "SET USER ROLL SUM", payload: response.userRollSums })
+          dispatch({ type: "SET USER DICE ROLLS", payload: response.userDiceRolls })
+          dispatch({ type: "SET ALL ROLL SUM", payload: response.allRollSums })
+          dispatch({ type: "SET ALL DICE ROLLS", payload: response.allDiceRolls })   
           history.push("/ShutTheBox")
         }
       })
@@ -62,6 +66,22 @@ function logUserIn (path, accountCredentials, history) {
 function autoLogIn (history) {
   return function (dispatch) {
     if(localStorage.token == undefined || localStorage.token == "undefined"){
+      
+      fetch( backendURL + "stb-guestrollhistory")
+        .then(resp => resp.json())
+        .then(response => {
+          if (response.status === "error") {
+            // alert("incorrect email/password combination")
+            // history.push("/LogIn")
+          } else {
+            dispatch({ type: "SET USER ROLL SUM", payload: response.userRollSums })
+            dispatch({ type: "SET USER DICE ROLLS", payload: response.userDiceRolls })
+            dispatch({ type: "SET ALL ROLL SUM", payload: response.allRollSums })
+            dispatch({ type: "SET ALL DICE ROLLS", payload: response.allDiceRolls })            }
+      })
+      .catch((error) => {
+        console.log("autoLoginFETCHError", error)
+      });
     }else{
       let token = localStorage.token
       fetch( backendURL + "autologin", {
@@ -103,7 +123,7 @@ function autoLogIn (history) {
 
 
 
-function stb_RollSum(rollSum, gameRollSums, userRollSums, allRollSums) {
+function stb_RollSum(rollSum, gameRollSums, sessionRollSums, userRollSums, allRollSums) {
   let number = ""
   switch (rollSum) {
     case 2: number = "two"
@@ -131,13 +151,14 @@ function stb_RollSum(rollSum, gameRollSums, userRollSums, allRollSums) {
     } // end switch
     return function (dispatch) {  
       dispatch({ type: "ADD GAME SUM", payload: {[number]: gameRollSums[number]+1, totalRolls: gameRollSums["totalRolls"]+1} })
+      dispatch({ type: "ADD SESSION SUM", payload: {[number]: sessionRollSums[number]+1, totalRolls: sessionRollSums["totalRolls"]+1} })
       dispatch({ type: "ADD USER SUM", payload: {[number]: userRollSums[number]+1, totalRolls: userRollSums["totalRolls"]+1} })
       dispatch({ type: "ADD ALL SUM", payload: {[number]: allRollSums[number]+1, totalRolls: allRollSums["totalRolls"]+1} })
     }// Ends dispatch
 } // stb_RollSum
 
 
-function stb_DiceRoll(die1, die2, gameDiceRolls, userDiceRolls, allDiceRolls) {
+function stb_DiceRoll(die1, die2, gameDiceRolls, sessionDiceRolls, userDiceRolls, allDiceRolls) {
 return function (dispatch) { 
   let dienum1 = ""
   let dienum2 = ""
@@ -157,6 +178,7 @@ return function (dispatch) {
   } // ends die1 switch statement
   if (die1 === die2) {
     dispatch({ type: "ADD GAME ROLL", payload: {[dienum1]: gameDiceRolls[dienum1]+2} })
+    dispatch({ type: "ADD SESSION ROLL", payload: {[dienum1]: sessionDiceRolls[dienum1]+2} })
     dispatch({ type: "ADD USER ROLL", payload: {[dienum1]: userDiceRolls[dienum1]+2} })
     dispatch({ type: "ADD ALL ROLL", payload: {[dienum1]: allDiceRolls[dienum1]+2} })
   }  else {
@@ -175,6 +197,7 @@ return function (dispatch) {
         break;
     } // ends Switch for dieNum2
     dispatch({ type: "ADD GAME ROLL", payload: {[dienum1]: gameDiceRolls[dienum1]+1, [dienum2]: gameDiceRolls[dienum2]+1} })
+    dispatch({ type: "ADD SESSION ROLL", payload: {[dienum1]: sessionDiceRolls[dienum1]+1, [dienum2]: sessionDiceRolls[dienum2]+1} })
     dispatch({ type: "ADD USER ROLL", payload: {[dienum1]: userDiceRolls[dienum1]+1, [dienum2]: userDiceRolls[dienum2]+1} })
     dispatch({ type: "ADD ALL ROLL", payload: {[dienum1]: allDiceRolls[dienum1]+1, [dienum2]: allDiceRolls[dienum2]+1} })
   } // ends ELSE

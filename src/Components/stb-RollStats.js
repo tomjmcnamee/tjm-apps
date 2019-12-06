@@ -13,8 +13,7 @@ import D6small from '../images/D6small.png'
 class RollStats extends React.Component {
 
 state = {
-  defaultTab: "thisgame",
-  selectedTab: "thisgame",
+  selectedTab: "thissession",
   statsView: "showDiceRolls"
 }
 
@@ -36,21 +35,21 @@ changeRadio = (event) => {
 render() {
     return(
 <div>
-  <div class="custom-control custom-radio custom-control-inline">
-    <input type="radio" class="custom-control-input" id="defaultInline1" name="showDiceRolls" checked={this.state.statsView === "showDiceRolls"} onChange={this.changeRadio}/>
-    <label class="custom-control-label" for="defaultInline1">Show Dice Rolls</label>
+  <div className="custom-control custom-radio custom-control-inline">
+    <input type="radio" className="custom-control-input" id="showDiceRolls" name="showDiceRolls" checked={this.state.statsView === "showDiceRolls"} onChange={this.changeRadio}/>
+    <label className="custom-control-label" for="showDiceRolls">Show Dice Rolls</label>
   </div>
   <span>  </span>
-  <div class="custom-control custom-radio custom-control-inline">
-    <input type="radio" class="custom-control-input" id="defaultInline2" name="showRollSums" name="showRollSums" checked={this.state.statsView === "showRollSums"} onChange={this.changeRadio} />
-    <label class="custom-control-label" for="defaultInline2">Show Roll Sums</label>
+  <div className="custom-control custom-radio custom-control-inline">
+    <input type="radio" className="custom-control-input" id="showRollSums" name="showRollSums" name="showRollSums" checked={this.state.statsView === "showRollSums"} onChange={this.changeRadio} />
+    <label className="custom-control-label" for="showRollSums">Show Roll Sums</label>
   </div>
 
 
-<Tabs defaultActiveKey={this.state.defaultTab} id="uncontrolled-tab-example" onSelect={this.selectTab}>
-  <Tab eventKey="thisgame" title="This Game" >
-  <h4>Roll Statistics</h4>
-    {this.props.totalRolls == 0 
+<Tabs id="uncontrolled-tab-example" onSelect={this.selectTab}>
+  <Tab eventKey="thissession" title="This Session" >
+  <h4>Session Roll Statistics</h4>
+    {this.props.stb_sessionRollSums.totalRolls == 0 
       ? 
         this.state.statsView === "showDiceRolls"
         ?
@@ -63,56 +62,182 @@ render() {
           <img src={D6small} />: 0.00%</p>
         </div>
         :
-        <div>
-          <p><img src={D1small} /><img src={D1small} />: 0.00%<br />
-          <img src={D2small} /><img src={D1small} />: 0.00%<br />
-          <img src={D2small} /><img src={D2small} />: 0.00%<br />
-          <img src={D3small} /><img src={D2small} />: 0.00%<br />
-          <img src={D3small} /><img src={D3small} />: 0.00%<br />
-          <img src={D4small} /><img src={D3small} />: 0.00%<br />
-          <img src={D4small} /><img src={D4small} />: 0.00%<br />
-          <img src={D5small} /><img src={D4small} />: 0.00%<br />
-          <img src={D5small} /><img src={D5small} />: 0.00%<br />
-          <img src={D6small} /><img src={D5small} />: 0.00%<br />
-          <img src={D6small} /><img src={D6small} />: 0.00%</p>
+        <div className="row">
+          <div className="col">
+            <p><img src={D1small} /><img src={D1small} />: 0.00%<br />
+            <img src={D2small} /><img src={D1small} />: 0.00%<br />
+            <img src={D2small} /><img src={D2small} />: 0.00%<br />
+            <img src={D3small} /><img src={D2small} />: 0.00%<br />
+            <img src={D3small} /><img src={D3small} />: 0.00%<br />
+            <img src={D4small} /><img src={D3small} />: 0.00%</p>
+          </div>
+          <div className="col">
+            <p><img src={D4small} /><img src={D4small} />: 0.00%<br />
+            <img src={D5small} /><img src={D4small} />: 0.00%<br />
+            <img src={D5small} /><img src={D5small} />: 0.00%<br />
+            <img src={D6small} /><img src={D5small} />: 0.00%<br />
+            <img src={D6small} /><img src={D6small} />: 0.00%</p>
+          </div>
         </div>
       :
         this.state.statsView === "showDiceRolls"
           ?
             <div>
-              <p><img src={D1small} />: {(this.props.stb_gameDiceRolls.one/(this.props.totalRolls*2)*100).toFixed(2)}%<br />
-              <img src={D2small} />: {(this.props.stb_gameDiceRolls.two/(this.props.totalRolls*2)*100).toFixed(2)}%<br />
-              <img src={D3small} />: {(this.props.stb_gameDiceRolls.three/(this.props.totalRolls*2)*100).toFixed(2)}%<br />
-              <img src={D4small} />: {(this.props.stb_gameDiceRolls.four/(this.props.totalRolls*2)*100).toFixed(2)}%<br />
-              <img src={D5small} />: {(this.props.stb_gameDiceRolls.five/(this.props.totalRolls*2)*100).toFixed(2)}%<br />
-              <img src={D6small} />: {(this.props.stb_gameDiceRolls.six/(this.props.totalRolls*2)*100).toFixed(2)}%</p>
+              <p><img src={D1small} />: {(this.props.stb_gameDiceRolls.one/(this.props.stb_sessionRollSums.totalRolls*2)*100).toFixed(2)}%<br />
+              <img src={D2small} />: {(this.props.stb_gameDiceRolls.two/(this.props.stb_sessionRollSums.totalRolls*2)*100).toFixed(2)}%<br />
+              <img src={D3small} />: {(this.props.stb_gameDiceRolls.three/(this.props.stb_sessionRollSums.totalRolls*2)*100).toFixed(2)}%<br />
+              <img src={D4small} />: {(this.props.stb_gameDiceRolls.four/(this.props.stb_sessionRollSums.totalRolls*2)*100).toFixed(2)}%<br />
+              <img src={D5small} />: {(this.props.stb_gameDiceRolls.five/(this.props.stb_sessionRollSums.totalRolls*2)*100).toFixed(2)}%<br />
+              <img src={D6small} />: {(this.props.stb_gameDiceRolls.six/(this.props.stb_sessionRollSums.totalRolls*2)*100).toFixed(2)}%</p>
             </div>
           :
-            <div>
-              <p><img src={D1small} /><img src={D1small} />: {(this.props.stb_gameRollSums.two/(this.props.totalRolls)*100).toFixed(2)}%<br />
-              <img src={D2small} /><img src={D1small} />: {(this.props.stb_gameRollSums.three/(this.props.totalRolls)*100).toFixed(2)}%<br />
-              <img src={D2small} /><img src={D2small} />: {(this.props.stb_gameRollSums.four/(this.props.totalRolls)*100).toFixed(2)}%<br />
-              <img src={D3small} /><img src={D2small} />: {(this.props.stb_gameRollSums.five/(this.props.totalRolls)*100).toFixed(2)}%<br />
-              <img src={D3small} /><img src={D3small} />: {(this.props.stb_gameRollSums.six/(this.props.totalRolls)*100).toFixed(2)}%<br />
-              <img src={D4small} /><img src={D3small} />: {(this.props.stb_gameRollSums.seven/(this.props.totalRolls)*100).toFixed(2)}%<br />
-              <img src={D4small} /><img src={D4small} />: {(this.props.stb_gameRollSums.eight/(this.props.totalRolls)*100).toFixed(2)}%<br />
-              <img src={D5small} /><img src={D4small} />: {(this.props.stb_gameRollSums.nine/(this.props.totalRolls)*100).toFixed(2)}%<br />
-              <img src={D5small} /><img src={D5small} />: {(this.props.stb_gameRollSums.ten/(this.props.totalRolls)*100).toFixed(2)}%<br />
-              <img src={D6small} /><img src={D5small} />: {(this.props.stb_gameRollSums.eleven/(this.props.totalRolls)*100).toFixed(2)}%<br />
-              <img src={D6small} /><img src={D6small} />: {(this.props.stb_gameRollSums.twelve/(this.props.totalRolls)*100).toFixed(2)}%</p>
+            <div className="row">
+              <div className="col">
+                <p><img src={D1small} /><img src={D1small} />: {(this.props.stb_sessionRollSums.two/(this.props.stb_sessionRollSums.totalRolls)*100).toFixed(2)}%<br />
+                <img src={D2small} /><img src={D1small} />: {(this.props.stb_sessionRollSums.three/(this.props.stb_sessionRollSums.totalRolls)*100).toFixed(2)}%<br />
+                <img src={D2small} /><img src={D2small} />: {(this.props.stb_sessionRollSums.four/(this.props.stb_sessionRollSums.totalRolls)*100).toFixed(2)}%<br />
+                <img src={D3small} /><img src={D2small} />: {(this.props.stb_sessionRollSums.five/(this.props.stb_sessionRollSums.totalRolls)*100).toFixed(2)}%<br />
+                <img src={D3small} /><img src={D3small} />: {(this.props.stb_sessionRollSums.six/(this.props.stb_sessionRollSums.totalRolls)*100).toFixed(2)}%<br />
+                <img src={D4small} /><img src={D3small} />: {(this.props.stb_sessionRollSums.seven/(this.props.stb_sessionRollSums.totalRolls)*100).toFixed(2)}%</p>
+              </div>
+              <div className="col">
+                <p><img src={D4small} /><img src={D4small} />: {(this.props.stb_sessionRollSums.eight/(this.props.stb_sessionRollSums.totalRolls)*100).toFixed(2)}%<br />
+                <img src={D5small} /><img src={D4small} />: {(this.props.stb_sessionRollSums.nine/(this.props.stb_sessionRollSums.totalRolls)*100).toFixed(2)}%<br />
+                <img src={D5small} /><img src={D5small} />: {(this.props.stb_sessionRollSums.ten/(this.props.stb_sessionRollSums.totalRolls)*100).toFixed(2)}%<br />
+                <img src={D6small} /><img src={D5small} />: {(this.props.stb_sessionRollSums.eleven/(this.props.stb_sessionRollSums.totalRolls)*100).toFixed(2)}%<br />
+                <img src={D6small} /><img src={D6small} />: {(this.props.stb_sessionRollSums.twelve/(this.props.stb_sessionRollSums.totalRolls)*100).toFixed(2)}%</p>
+              </div>
             </div>
     }
-    <p>Total Rolls {this.props.totalRolls}</p>
-  </Tab>
-  <Tab eventKey="thissession" title="This Session">
-
-    <h1> hi </h1>
+    <p>Total Rolls: {this.props.stb_sessionRollSums.totalRolls}</p>
   </Tab>
   <Tab eventKey="yourgames" title={this.props.loggedInUserObj.id == 1 ? "All Guest Games" : "Your Games"}>
-    <h1> hi </h1>
+    <h4>{this.props.loggedInUserObj.id == 1 ? "All Guest Games Statistics" : "Your Games Statistics"}</h4>
+      {this.props.stb_userRollSums.totalRolls == 0 
+        ? 
+          this.state.statsView === "showDiceRolls"
+          ?
+          <div>
+            <p><img src={D1small} />: 0.00%<br />
+            <img src={D2small} />: 0.00%<br />
+            <img src={D3small} />: 0.00%<br />
+            <img src={D4small} />: 0.00%<br />
+            <img src={D5small} />: 0.00%<br />
+            <img src={D6small} />: 0.00%</p>
+          </div>
+          :
+          <div className="row">
+            <div className="col">
+              <p><img src={D1small} /><img src={D1small} />: 0.00%<br />
+              <img src={D2small} /><img src={D1small} />: 0.00%<br />
+              <img src={D2small} /><img src={D2small} />: 0.00%<br />
+              <img src={D3small} /><img src={D2small} />: 0.00%<br />
+              <img src={D3small} /><img src={D3small} />: 0.00%<br />
+              <img src={D4small} /><img src={D3small} />: 0.00%</p>
+            </div>
+            <div className="col">
+              <p><img src={D4small} /><img src={D4small} />: 0.00%<br />
+              <img src={D5small} /><img src={D4small} />: 0.00%<br />
+              <img src={D5small} /><img src={D5small} />: 0.00%<br />
+              <img src={D6small} /><img src={D5small} />: 0.00%<br />
+              <img src={D6small} /><img src={D6small} />: 0.00%</p>
+            </div>
+          </div>
+        :
+          this.state.statsView === "showDiceRolls"
+            ?
+              <div>
+                <p><img src={D1small} />: {(this.props.stb_userDiceRolls.one/(this.props.stb_userRollSums.totalRolls*2)*100).toFixed(2)}%<br />
+                <img src={D2small} />: {(this.props.stb_userDiceRolls.two/(this.props.stb_userRollSums.totalRolls*2)*100).toFixed(2)}%<br />
+                <img src={D3small} />: {(this.props.stb_userDiceRolls.three/(this.props.stb_userRollSums.totalRolls*2)*100).toFixed(2)}%<br />
+                <img src={D4small} />: {(this.props.stb_userDiceRolls.four/(this.props.stb_userRollSums.totalRolls*2)*100).toFixed(2)}%<br />
+                <img src={D5small} />: {(this.props.stb_userDiceRolls.five/(this.props.stb_userRollSums.totalRolls*2)*100).toFixed(2)}%<br />
+                <img src={D6small} />: {(this.props.stb_userDiceRolls.six/(this.props.stb_userRollSums.totalRolls*2)*100).toFixed(2)}%</p>
+              </div>
+            :
+              <div className="row">
+                <div className="col"> 
+                  <p><img src={D1small} /><img src={D1small} />: {(this.props.stb_userRollSums.two/(this.props.stb_userRollSums.totalRolls)*100).toFixed(2)}%<br />
+                  <img src={D2small} /><img src={D1small} />: {(this.props.stb_userRollSums.three/(this.props.stb_userRollSums.totalRolls)*100).toFixed(2)}%<br />
+                  <img src={D2small} /><img src={D2small} />: {(this.props.stb_userRollSums.four/(this.props.stb_userRollSums.totalRolls)*100).toFixed(2)}%<br />
+                  <img src={D3small} /><img src={D2small} />: {(this.props.stb_userRollSums.five/(this.props.stb_userRollSums.totalRolls)*100).toFixed(2)}%<br />
+                  <img src={D3small} /><img src={D3small} />: {(this.props.stb_userRollSums.six/(this.props.stb_userRollSums.totalRolls)*100).toFixed(2)}%<br />
+                  <img src={D4small} /><img src={D3small} />: {(this.props.stb_userRollSums.seven/(this.props.stb_userRollSums.totalRolls)*100).toFixed(2)}%</p>
+                </div>
+                <div className="col"> 
+                  <p><img src={D4small} /><img src={D4small} />: {(this.props.stb_userRollSums.eight/(this.props.stb_userRollSums.totalRolls)*100).toFixed(2)}%<br />
+                  <img src={D5small} /><img src={D4small} />: {(this.props.stb_userRollSums.nine/(this.props.stb_userRollSums.totalRolls)*100).toFixed(2)}%<br />
+                  <img src={D5small} /><img src={D5small} />: {(this.props.stb_userRollSums.ten/(this.props.stb_userRollSums.totalRolls)*100).toFixed(2)}%<br />
+                  <img src={D6small} /><img src={D5small} />: {(this.props.stb_userRollSums.eleven/(this.props.stb_userRollSums.totalRolls)*100).toFixed(2)}%<br />
+                  <img src={D6small} /><img src={D6small} />: {(this.props.stb_userRollSums.twelve/(this.props.stb_userRollSums.totalRolls)*100).toFixed(2)}%</p>
+                </div>
+              </div>
+      }
+    <p>Total Rolls: {this.props.stb_userRollSums.totalRolls}</p>
   </Tab>
   <Tab eventKey="allgames" title="All Games">
-    <h1> hi </h1>
+  <h4>Stats for All Games from All Users</h4>
+      {this.props.stb_allRollSums.totalRolls == 0 
+        ? 
+          this.state.statsView === "showDiceRolls"
+          ?
+          <div>
+            <p><img src={D1small} />: 0.00%<br />
+            <img src={D2small} />: 0.00%<br />
+            <img src={D3small} />: 0.00%<br />
+            <img src={D4small} />: 0.00%<br />
+            <img src={D5small} />: 0.00%<br />
+            <img src={D6small} />: 0.00%</p>
+          </div>
+          :
+          <div className="row">
+            <div className="col">
+              <p><img src={D1small} /><img src={D1small} />: 0.00%<br />
+              <img src={D2small} /><img src={D1small} />: 0.00%<br />
+              <img src={D2small} /><img src={D2small} />: 0.00%<br />
+              <img src={D3small} /><img src={D2small} />: 0.00%<br />
+              <img src={D3small} /><img src={D3small} />: 0.00%<br />
+              <img src={D4small} /><img src={D3small} />: 0.00%</p>
+            </div>
+            <div className="col">
+              <p><img src={D4small} /><img src={D4small} />: 0.00%<br />
+              <img src={D5small} /><img src={D4small} />: 0.00%<br />
+              <img src={D5small} /><img src={D5small} />: 0.00%<br />
+              <img src={D6small} /><img src={D5small} />: 0.00%<br />
+              <img src={D6small} /><img src={D6small} />: 0.00%</p>
+            </div>
+          </div>
+        :
+          this.state.statsView === "showDiceRolls"
+            ?
+              <div>
+                <p><img src={D1small} />: {(this.props.stb_allDiceRolls.one/(this.props.stb_allRollSums.totalRolls*2)*100).toFixed(2)}%<br />
+                <img src={D2small} />: {(this.props.stb_allDiceRolls.two/(this.props.stb_allRollSums.totalRolls*2)*100).toFixed(2)}%<br />
+                <img src={D3small} />: {(this.props.stb_allDiceRolls.three/(this.props.stb_allRollSums.totalRolls*2)*100).toFixed(2)}%<br />
+                <img src={D4small} />: {(this.props.stb_allDiceRolls.four/(this.props.stb_allRollSums.totalRolls*2)*100).toFixed(2)}%<br />
+                <img src={D5small} />: {(this.props.stb_allDiceRolls.five/(this.props.stb_allRollSums.totalRolls*2)*100).toFixed(2)}%<br />
+                <img src={D6small} />: {(this.props.stb_allDiceRolls.six/(this.props.stb_allRollSums.totalRolls*2)*100).toFixed(2)}%</p>
+              </div>
+            :
+              <div className="row">
+                <div className="col"> 
+                  <p><img src={D1small} /><img src={D1small} />: {(this.props.stb_allRollSums.two/(this.props.stb_allRollSums.totalRolls)*100).toFixed(2)}%<br />
+                  <img src={D2small} /><img src={D1small} />: {(this.props.stb_allRollSums.three/(this.props.stb_allRollSums.totalRolls)*100).toFixed(2)}%<br />
+                  <img src={D2small} /><img src={D2small} />: {(this.props.stb_allRollSums.four/(this.props.stb_allRollSums.totalRolls)*100).toFixed(2)}%<br />
+                  <img src={D3small} /><img src={D2small} />: {(this.props.stb_allRollSums.five/(this.props.stb_allRollSums.totalRolls)*100).toFixed(2)}%<br />
+                  <img src={D3small} /><img src={D3small} />: {(this.props.stb_allRollSums.six/(this.props.stb_allRollSums.totalRolls)*100).toFixed(2)}%<br />
+                  <img src={D4small} /><img src={D3small} />: {(this.props.stb_allRollSums.seven/(this.props.stb_allRollSums.totalRolls)*100).toFixed(2)}%</p>
+                </div>
+                <div className="col">
+                  <p><img src={D4small} /><img src={D4small} />: {(this.props.stb_allRollSums.eight/(this.props.stb_allRollSums.totalRolls)*100).toFixed(2)}%<br />
+                  <img src={D5small} /><img src={D4small} />: {(this.props.stb_allRollSums.nine/(this.props.stb_allRollSums.totalRolls)*100).toFixed(2)}%<br />
+                  <img src={D5small} /><img src={D5small} />: {(this.props.stb_allRollSums.ten/(this.props.stb_allRollSums.totalRolls)*100).toFixed(2)}%<br />
+                  <img src={D6small} /><img src={D5small} />: {(this.props.stb_allRollSums.eleven/(this.props.stb_allRollSums.totalRolls)*100).toFixed(2)}%<br />
+                  <img src={D6small} /><img src={D6small} />: {(this.props.stb_allRollSums.twelve/(this.props.stb_allRollSums.totalRolls)*100).toFixed(2)}%</p>
+                </div>
+              </div>
+      }
+    <p>Total Rolls: {this.props.stb_allRollSums.totalRolls}</p>
   </Tab>
 </Tabs>
           
@@ -136,6 +261,8 @@ function msp(state) { return {
   stb_RollSum: state.stb_RollSum,
   stb_gameDiceRolls: state.stb_gameDiceRolls,
   stb_gameRollSums: state.stb_gameRollSums,
+  stb_sessionDiceRolls: state.stb_sessionDiceRolls,
+  stb_sessionRollSums: state.stb_sessionRollSums,
   stb_userDiceRolls: state.stb_userDiceRolls,
   stb_userRollSums: state.stb_userRollSums,
   stb_allDiceRolls: state.stb_allDiceRolls,
