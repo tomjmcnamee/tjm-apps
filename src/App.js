@@ -22,7 +22,7 @@ class App extends React.Component {
       <Route path='/LogIn' component={localStorage.token === undefined ? LogIn : null} />
       <Route path="/SignUp" component={SignUp} />
       <Route path="/ShutTheBox" component={ShutTheBox} />
-      <Route exact path="/" component={Homepage} />
+      <Route exact path="/" component={ShutTheBox} />
 
     </div>
   );
