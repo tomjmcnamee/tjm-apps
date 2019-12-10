@@ -1,6 +1,4 @@
 import React from 'react';
-import GameBoard from '../Components/stb-gameBoard'
-import NumberTiles from '../Components/stb-numberTiles'
 import DiceRoll from '../Components/stb-diceRoll'
 import CreateNumberTile from '../Components/stb-createNumberTile'
 import { connect } from 'react-redux'
@@ -74,7 +72,7 @@ class ShutTheBox extends React.Component {
 
   numberClickHandler = (number) => {
     // event.preventDefault()
-    if (this.state.comboArray[this.state.comboArray.length -1] == number &&  this.state.comboArray.length%2 == 1) {
+    if (this.state.comboArray[this.state.comboArray.length -1] === number &&  this.state.comboArray.length%2 === 1) {
       let newBoard = this.state.board
       let indexToDel = newBoard.indexOf(number);
       newBoard.splice(indexToDel, 1);
@@ -123,7 +121,7 @@ class ShutTheBox extends React.Component {
       history={this.props.history} 
       NumberAvailable={this.state.board.includes(num)}
       NumberValidOption={this.state.comboArray.includes(num)}
-      FirstRun={this.state.rollSum == 0}
+      FirstRun={this.state.rollSum === 0}
       numberClickHandler={this.numberClickHandler}
       gameWon={this.state.gameWon} />)
   }
@@ -151,7 +149,6 @@ function mdp(dispatch) {
   }
 }
 
-{/* // this comes from reduct.js - K is local reference, V is foreign state attribute */}
 function msp(state) { return { 
   loggedInUserObj: state.loggedInUserObj,
   stb_gameDiceRolls: state.stb_gameDiceRolls,

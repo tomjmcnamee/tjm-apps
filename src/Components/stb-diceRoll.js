@@ -66,6 +66,7 @@ class DiceRoll extends React.Component {
     case 6:
       ++tempsix
       break;
+    default: ;
     }
     
     switch (tempdie2) {
@@ -87,6 +88,7 @@ class DiceRoll extends React.Component {
       case 6:
         ++tempsix
         break;
+      default: ;
         }
         tempTotalRolls = this.state.totalRolls + 1
         
@@ -122,7 +124,7 @@ newGameClickHandler = () => {
 }
 
 //--- THESE NEXT 3 METHODS ARE FOR THE SPACEBAR KEYPRESS
-componentWillMount() {
+componentDidMount() {
   document.addEventListener("keydown", this.onKeyPressedNewGame.bind(this));
   document.addEventListener("keydown", this.onKeyPressedRoll.bind(this));
 }
@@ -133,12 +135,12 @@ componentWillUnmount() {
 }      
 
 onKeyPressedRoll(e) {
-  if (e.keyCode == 32 && !this.props.readyToRoll && !this.props.gameOver){
+  if (e.keyCode === 32 && !this.props.readyToRoll && !this.props.gameOver){
     this.rollDiceClickHandler()
   }
 }
 onKeyPressedNewGame(e) {
-  if (e.keyCode == 32 && !this.props.readyToRoll && this.props.gameOver){
+  if (e.keyCode === 32 && !this.props.readyToRoll && this.props.gameOver){
     this.newGameClickHandler()
   }
 }
@@ -146,18 +148,18 @@ onKeyPressedNewGame(e) {
 
 
 render() {
-  let Dimage1 = <img src={this.state.die1 == 1 ? D1 :
-    this.state.die1 == 2 ? D2 :
-    this.state.die1 == 3 ? D3 :
-    this.state.die1 == 4 ? D4 :
-    this.state.die1 == 5 ? D5 :
-    this.state.die1 == 6 ? D6 : D0} />
-  let Dimage2 = <img src={this.state.die2 == 1 ? D1 :
-    this.state.die2 == 2 ? D2 :
-    this.state.die2 == 3 ? D3 :
-    this.state.die2 == 4 ? D4 :
-    this.state.die2 == 5 ? D5 :
-    this.state.die2 == 6 ? D6 : D0} />
+  let Dimage1 = <img src={this.state.die1 === 1 ? D1 :
+    this.state.die1 === 2 ? D2 :
+    this.state.die1 === 3 ? D3 :
+    this.state.die1 === 4 ? D4 :
+    this.state.die1 === 5 ? D5 :
+    this.state.die1 === 6 ? D6 : D0} alt=""/>
+  let Dimage2 = <img src={this.state.die2 === 1 ? D1 :
+    this.state.die2 === 2 ? D2 :
+    this.state.die2 === 3 ? D3 :
+    this.state.die2 === 4 ? D4 :
+    this.state.die2 === 5 ? D5 :
+    this.state.die2 === 6 ? D6 : D0} alt="" />
 
 
 
@@ -217,7 +219,6 @@ function mdp(dispatch) {
   }
 }
 
-{/* // this comes from reduct.js - K is local reference, V is foreign state attribute */}
 function msp(state) { return { 
   stb_RollSum: state.stb_RollSum,
   stb_gameDiceRolls: state.stb_gameDiceRolls,

@@ -1,5 +1,4 @@
 import React from 'react'
-import { thisExpression } from '@babel/types'
 // import { connect } from 'react-redux'
 // import { setSelectedCampaignAndContributions } from '../actions'
 
@@ -46,6 +45,8 @@ class CreateNumberTile extends React.Component {
         break;
         case 12: winText = ""
         break;
+        default: winText = ""
+        break;
     }
 
     return (
@@ -54,14 +55,14 @@ class CreateNumberTile extends React.Component {
         {this.props.gameWon 
           ? 
           <div className="NumberTile" data-tile-number={this.props.number}>
-          <img src={tileHTML} />
+          <img src={tileHTML} alt="" />
           <div className="NotValidOption" >{winText}</div>
         </div>
           :
             this.props.FirstRun 
           ?
             <div className="NumberTile" data-tile-number={this.props.number} >
-              <img  src={tileHTML} />
+              <img  src={tileHTML} alt="" />
               <div className="TileNumberText" >{this.props.number}</div>
             </div>
           :
@@ -70,17 +71,17 @@ class CreateNumberTile extends React.Component {
             this.props.NumberValidOption
               ?
                 <div className="NumberTile" data-tile-number={this.props.number} onClick={() => this.props.numberClickHandler(this.props.number)}>
-                  <img src={tileHTML} />
+                  <img src={tileHTML} alt="" />
                   <div className="TileNumberText" >{this.props.number}</div>
                 </div>
               :
                 <div className="NumberTile" data-tile-number={this.props.number}>
-                  <img src={tileHTML} />
+                  <img src={tileHTML} alt="" />
                   <div className="NotValidOption" >{this.props.number}</div>
                 </div>
             :
             <div className="NumberTile" data-tile-number={this.props.number} >
-              <img src={tileHTML} />
+              <img src={tileHTML} alt="" />
             </div>
         }
       </div>

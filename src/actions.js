@@ -57,13 +57,14 @@ function logUserIn (accountCredentials, history) {
       })
       .catch((error) => {
         console.log("Log Users In action Error - ", error)
+        console.alert("Bad Login ID and Password Combo")
       });
     }
   } // END LogUserIn function
 
 function autoLogIn (history) {
   return function (dispatch) {
-    if(localStorage.token == undefined || localStorage.token == "undefined"){
+    if(localStorage.token === undefined || localStorage.token === "undefined"){
       
       fetch( backendURL + "stb-guestrollhistory")
         .then(resp => resp.json())
@@ -82,6 +83,7 @@ function autoLogIn (history) {
       });
     }else{
       let token = localStorage.token
+      console.log("TM- local storage token = ", token)
       fetch( backendURL + "autologin", {
         method: "GET",
         headers: {
@@ -162,6 +164,7 @@ function stb_RollSum(rollSum, gameRollSums, sessionRollSums, userRollSums, allRo
         break;
     case 12: number = "twelve"
       break;
+    default: ;
     } // end switch
     return function (dispatch) {  
       dispatch({ type: "ADD GAME SUM", payload: {[number]: gameRollSums[number]+1, totalRolls: gameRollSums["totalRolls"]+1} })
@@ -189,6 +192,7 @@ return function (dispatch) {
       break;
     case 6: dienum1 = "six"
       break;
+    default: ;
   } // ends die1 switch statement
   if (die1 === die2) {
     dispatch({ type: "ADD GAME ROLL", payload: {[dienum1]: gameDiceRolls[dienum1]+2} })
@@ -209,6 +213,7 @@ return function (dispatch) {
         break;
       case 6: dienum2 = "six"
         break;
+      default: ;
     } // ends Switch for dieNum2
     dispatch({ type: "ADD GAME ROLL", payload: {[dienum1]: gameDiceRolls[dienum1]+1, [dienum2]: gameDiceRolls[dienum2]+1} })
     dispatch({ type: "ADD SESSION ROLL", payload: {[dienum1]: sessionDiceRolls[dienum1]+1, [dienum2]: sessionDiceRolls[dienum2]+1} })
@@ -246,6 +251,7 @@ function stb_commitLosingGameToHistory (userId, gameDiceRolls, gameDiceSums, die
       break;
     case 12: number = "twelve"
       break;
+    default: ;
   }
 
   let dienum1 = ""
@@ -264,6 +270,7 @@ function stb_commitLosingGameToHistory (userId, gameDiceRolls, gameDiceSums, die
       break;
     case 6: dienum1 = "six"
       break;
+    default: ;
   } // ends die1 switch statement
   if (die1 === die2) {
     rolls = {...gameDiceRolls, [dienum1]: gameDiceRolls[dienum1] + 2}
@@ -281,6 +288,7 @@ function stb_commitLosingGameToHistory (userId, gameDiceRolls, gameDiceSums, die
         break;
       case 6: dienum2 = "six"
         break;
+      default: ;
       } // ends Switch for Die2
       rolls = {...gameDiceRolls, [dienum1]: gameDiceRolls[dienum1] + 1, [dienum2]: gameDiceRolls[dienum2] + 1}
   } /// ends ELSE statement

@@ -32,7 +32,7 @@ class TopMenuBar extends React.Component {
     let welcomeMessage = ""
     if ((localStorage.token === undefined || localStorage.token === "undefined" ) || (this.props.loggedInUserObj === undefined || this.props.loggedInUserObj.id === undefined)) {
       topButton =  <a href="/LogIn" > <button>Log In or Sign Up</button> </a>
-      welcomeMessage = <h6>You are currently playing under the Guest account  {topButton}</h6>
+      welcomeMessage = <h6>You are currently using tomjmcnamee.com as a guest   {topButton}</h6>
    } else {
       topButton = <button onClick={this.logOutHandler}  >Log Out</button>
       welcomeMessage =  <h6 id="welcomeBackInHeader" >Welcome back, {this.props.loggedInUserObj.first_name}   {topButton} </h6>

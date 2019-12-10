@@ -42,7 +42,7 @@ class LogIn extends React.Component {
                 <h2>Log In To Your Account</h2>
                         <form onSubmit={this.formSubmitHandler}>
                             <h5>Email Address: <input type="text" required name="email" fluid icon='user' iconPosition='left' label='E-mail address'  value={this.state.email_address} onChange={this.fieldChangeHandler}/></h5>
-                            <h5>Password: <input required fluid icon='lock' type='password' iconPosition='left' type='password' name="password"  value={this.state.password} onChange={this.fieldChangeHandler}  /></h5>
+                            <h5>Password: <input required fluid icon='lock' type='password' iconPosition='left' name="password"  value={this.state.password} onChange={this.fieldChangeHandler}  /></h5>
                             <button color='teal' fluid size='large' type="submit" >Log In</button>
                         </form>
                         <h5>New to us? <a href="/SignUp">Sign Up</a></h5>
