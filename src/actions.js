@@ -302,7 +302,10 @@ function stb_commitLosingGameToHistory (userId, gameDiceRolls, gameDiceSums, die
       "content-type": "application/json",
       accepts: "application/json"
     },
-    body: JSON.stringify({ user_id: userId, shut_the_box_game: game, shut_the_box_dice_roll: rolls, shut_the_box_roll_sum: sums })
+    // The below commented line is the ONLY part that uses the above SWITCH and IF logic since the final roll in any loss was not getting contributed to the DB
+    //  however, no the final roll IS getting contributed so it is being sent to the DB as a duplicate.  The new BODY line corrects it by sending it only once.
+    // body: JSON.stringify({ user_id: userId, shut_the_box_game: game, shut_the_box_dice_roll: rolls, shut_the_box_roll_sum: sums })
+    body: JSON.stringify({ user_id: userId, shut_the_box_game: game, shut_the_box_dice_roll: gameDiceRolls, shut_the_box_roll_sum: gameDiceSums })
   })
     .then(resp => resp.json())
     .then(response => {
