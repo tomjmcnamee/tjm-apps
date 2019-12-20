@@ -33,6 +33,10 @@
   color: #09d3ac;
 }
 
+ 
+  /* #NumberTilesDiv {
+    height: 10px;
+  } */
 
 .NumberTile {
   position: relative;
@@ -41,13 +45,15 @@
   display: table-cell;
   float: left;
   width: 8%;
-	border: 1px solid blue;
+	/* border: 1px solid brown; */
 }
 
-.WoodTile {
-  width: 100%;
-
+.NumberTile img{
+  height: 2em;
+  width: 1em;
 }
+
+
 
 .TileNumberText {
   position: absolute;

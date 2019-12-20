@@ -134,7 +134,9 @@ render() {
       <div id="master-div">
         <h1>Shut The Box</h1>
         <DiceRoll rollHandler={this.rollHandler} newGameHandler={this.newGameHandler} gameOver={this.state.gameOver} board={this.state.board} readyToRoll={this.state.comboArray.length > 0} />
-       {this.numberTiles()}
+        <div className="DivHoldingNumberTiles" >
+          {this.numberTiles()} 
+        </div>
       </div> // closes parent div
     ) // closes RETURN
   } //closes RENDER
@@ -145,7 +147,6 @@ function mdp(dispatch) {
   return { 
     stb_commitLosingGameToHistory: (a, b, c,die1, die2) => dispatch(stb_commitLosingGameToHistory(a, b, c, die1, die2)),
     stb_commitWinningGameToHistory: (a, b, c) => dispatch(stb_commitWinningGameToHistory(a, b, c)),
-
   }
 }
 
@@ -153,10 +154,6 @@ function msp(state) { return {
   loggedInUserObj: state.loggedInUserObj,
   stb_gameDiceRolls: state.stb_gameDiceRolls,
   stb_gameRollSums: state.stb_gameRollSums,
-  stb_userDiceRolls: state.stb_userDiceRolls,
-  stb_userRollSums: state.stb_userRollSums,
-  stb_allDiceRolls: state.stb_allDiceRolls,
-  stb_allRollSums: state.stb_allRollSums
 }}
 
 export default connect(msp, mdp)(ShutTheBox)

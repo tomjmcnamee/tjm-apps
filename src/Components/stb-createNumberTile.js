@@ -1,6 +1,5 @@
 import React from 'react'
-// import { connect } from 'react-redux'
-// import { setSelectedCampaignAndContributions } from '../actions'
+import BlankTile from '../images/BlankTile.png'
 
 
 class CreateNumberTile extends React.Component {
@@ -18,7 +17,7 @@ class CreateNumberTile extends React.Component {
 
   
   render(){
-    let tileHTML = "https://2.bp.blogspot.com/-3n-RvkRGmfU/UO_iCdvu5oI/AAAAAAAAEHA/ABNauhWa8Iw/s1600/maple-seamless_wood_texture.jpg"
+    // let tileHTML = "https://2.bp.blogspot.com/-3n-RvkRGmfU/UO_iCdvu5oI/AAAAAAAAEHA/ABNauhWa8Iw/s1600/maple-seamless_wood_texture.jpg"
     let winText = ""
     switch (this.props.number) {
       case 1: winText = ""
@@ -51,18 +50,20 @@ class CreateNumberTile extends React.Component {
 
     return (
 
-      <div>
+      <div >
         {this.props.gameWon 
           ? 
           <div className="NumberTile" data-tile-number={this.props.number}>
-          <img src={tileHTML} alt="" />
+          <img className="Tile" src={BlankTile} alt="" />
+    
           <div className="NotValidOption" >{winText}</div>
         </div>
           :
             this.props.FirstRun 
           ?
             <div className="NumberTile" data-tile-number={this.props.number} >
-              <img  src={tileHTML} alt="" />
+              <img  src={BlankTile} alt="" />
+        
               <div className="TileNumberText" >{this.props.number}</div>
             </div>
           :
@@ -71,17 +72,20 @@ class CreateNumberTile extends React.Component {
             this.props.NumberValidOption
               ?
                 <div className="NumberTile" data-tile-number={this.props.number} onClick={() => this.props.numberClickHandler(this.props.number)}>
-                  <img src={tileHTML} alt="" />
+                  <img className="Tile" src={BlankTile} alt="" />
+            
                   <div className="TileNumberText" >{this.props.number}</div>
                 </div>
               :
                 <div className="NumberTile" data-tile-number={this.props.number}>
-                  <img src={tileHTML} alt="" />
+                  <img className="Tile" src={BlankTile} alt="" />
+            
                   <div className="NotValidOption" >{this.props.number}</div>
                 </div>
             :
             <div className="NumberTile" data-tile-number={this.props.number} >
-              <img src={tileHTML} alt="" />
+              <img className="Tile" src={BlankTile} alt="" />
+        
             </div>
         }
       </div>
@@ -89,17 +93,4 @@ class CreateNumberTile extends React.Component {
   }// ends render
 } // ends class
 
-// this comes from the actions.js function names
-// function mdp(dispatch) {
-//   // return { setSelectedCampaignAndContributions: ( path, campaignObj, history ) => dispatch(setSelectedCampaignAndContributions( path, campaignObj, history)) }
-//   return { setSelectedCampaignAndContributions: ( campaignObj, history ) => dispatch(setSelectedCampaignAndContributions( campaignObj, history)) }
-// }
-
-
-// this comes from reduct.js - K is local reference, V is foreign state attribute
-// function msp(state) {
-//   return { workingEntityObj: state.workingEntityObj}
-// }
-
-// export default connect(msp, mdp)(CampaignCard)
 export default CreateNumberTile

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { stb_RollSum, stb_DiceRoll } from '../actions'
+import { stb_RollSum } from '../actions'
 import { Tabs, Tab } from 'react-bootstrap'
 import D1small from '../images/D1small.png'
 import D2small from '../images/D2small.png'
@@ -251,15 +251,12 @@ render() {
 function mdp(dispatch) { 
   return { 
     stb_RollSum: (rollSum, gameRollSum, userRollSum, allRollSum) => dispatch(stb_RollSum(rollSum, gameRollSum, userRollSum, allRollSum)),
-    stb_DiceRoll: (die1, die2, gameDiceRolls, userDiceRolls, allDiceRolls) => dispatch(stb_DiceRoll(die1, die2, gameDiceRolls, userDiceRolls, allDiceRolls))
   }
 }
 
 function msp(state) { return { 
   loggedInUserObj: state.loggedInUserObj,
   stb_RollSum: state.stb_RollSum,
-  stb_gameDiceRolls: state.stb_gameDiceRolls,
-  stb_gameRollSums: state.stb_gameRollSums,
   stb_sessionDiceRolls: state.stb_sessionDiceRolls,
   stb_sessionRollSums: state.stb_sessionRollSums,
   stb_userDiceRolls: state.stb_userDiceRolls,

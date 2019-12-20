@@ -18,7 +18,6 @@ class SignUp extends React.Component {
       document.title = "TJM - Sign Up Form"
     }
 
-    
     fieldChangeHandler = (event) => {
         this.setState({
             [event.target.name]: event.target.value
@@ -34,25 +33,14 @@ class SignUp extends React.Component {
         default:
             this.props.signUp(this.state, this.props.history)
         }
-        // if (this.state.password === this.state.confirm_password) {
-        //     // --------------this.props.logUserIn("login", this.state, this.props.history)
-        // } else {
-        //     alert('Your entries in the "Password" and "Confirm Password" fields are different, please try again')
-        //     this.setState({
-        //         password: "",
-        //         confirm_password: ""
-        //     })
-        // }
     }
 
     render () {
-        return(
-
-          <div name="PAGE DIV" id="SignUpPrimaryDiv" className="ui grid background">
-            <div className="five wide column"  >
-            </div>
-            <div className="six wide column"  id="SignUpCenterDiv" >
-          
+      return(
+        <div name="PAGE DIV" id="SignUpPrimaryDiv" className="ui grid background">
+          <div className="five wide column"  >
+          </div>
+          <div className="six wide column"  id="SignUpCenterDiv" >
             <form id="signupForm" onSubmit={(event) => this.formSubmitHandler(event)}>
               <h2>Sign Up For Your Account</h2>
               <h5>First Name: <input required type="text" name="first_name" label='First Name' value={this.state.first_name} onChange={this.fieldChangeHandler} /></h5>
@@ -65,14 +53,12 @@ class SignUp extends React.Component {
               <h3>
                 Already have an account? <a href="/LogIn">Log In</a>
               </h3>
-
             </form>
-            </div>
-           <div className="five wide column"  >
+          </div>
+          <div className="five wide column"  >
           </div>
         </div>
-
-    )
+      )
     }
 }
 
@@ -82,7 +68,6 @@ function mdp(dispatch) {
 
 // this comes from reduct.js - K is local reference, V is foreign state attribute
 function msp(state) {
-  return { workingCampaignObj: state.workingCampaignObj}
 }
 
 export default connect(msp, mdp)(SignUp) 
