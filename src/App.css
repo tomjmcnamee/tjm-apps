@@ -121,6 +121,13 @@
     #RollStats {
     display: none;
     }
+
+    .NumberTile {
+      position: relative;
+      text-align: center;
+      font-size: 80px;
+      margin: 1px
+    }
     
     }
  

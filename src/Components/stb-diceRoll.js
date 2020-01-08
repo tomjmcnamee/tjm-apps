@@ -173,19 +173,22 @@ render() {
             {this.props.gameOver
               ?
               // <button type="button" className="btn btn-primary btn-lg" disabled >Roll The Dice</button>
+               <>
                 <button type="button" className="btn btn-primary btn-lg btn-warning" onKeyDown={(e) => this.onKeyPressedRoll(e)} tabIndex="0" onClick={this.newGameClickHandler}>Start New Game</button>
+                {this.props.board.length > 0 ? <h1>You Lose!</h1> : null }
+                {this.props.board.length === 0 ? <h1>You WIN!</h1> : null }
+              </>
               :
                 this.props.readyToRoll 
                   ?
                   // <button type="button" className="btn btn-primary btn-lg" disabled>Roll The Dice</button>
-                  null
+                  (!this.props.gameOver && this.props.readyToRoll) ? <h5 className="d-flex align-items-end flex-column">Click up to two valid numbers that total the dice sum.</h5> : null 
                   :
                   <>
                   <button type="button" className="btn btn-primary btn-lg" onKeyDown={(e) => this.onKeyPressedRoll(e)} tabIndex="0" onClick={this.rollDiceClickHandler}>Click To Roll The Dice</button>
                   <h5>*or hit spacebar*</h5>
-                  </>
 
-                
+                  </>
             }
             {/* {this.props.gameOver 
               ?
@@ -197,9 +200,8 @@ render() {
           <div id="dice" className="col ">
             {Dimage1}
             {Dimage2}
-            {this.props.gameOver && this.props.board.length > 0 ? <h1>You Lose!</h1> : null }
+            
 
-              {!this.props.gameOver && this.props.readyToRoll ? <h5 className="d-flex align-items-end flex-column">Click up to two valid numbers that total the above sum.</h5> : null }
 
           </div>
           <div id="RollStats"  className="col">
