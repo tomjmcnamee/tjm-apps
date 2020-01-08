@@ -50,21 +50,24 @@ class CreateNumberTile extends React.Component {
 
     return (
 
-      <div >
+      < >
         {this.props.gameWon 
           ? 
-          <div className="NumberTile" data-tile-number={this.props.number}>
-          <img className="Tile" src={BlankTile} alt="" />
-    
-          <div className="NotValidOption" >{winText}</div>
-        </div>
+            <div className="NumberTile" data-tile-number={this.props.number}>
+              <img className="Tile" src={BlankTile} alt="" />
+              <div className="NotValidOption" >
+                {winText}
+              </div>
+            </div>
           :
             this.props.FirstRun 
           ?
             <div className="NumberTile" data-tile-number={this.props.number} >
               <img  src={BlankTile} alt="" />
         
-              <div className="TileNumberText" >{this.props.number}</div>
+              <div className="TileNumberText" >
+                {this.props.number}
+              </div>
             </div>
           :
           this.props.NumberAvailable 
@@ -88,7 +91,7 @@ class CreateNumberTile extends React.Component {
         
             </div>
         }
-      </div>
+      </>
       )// ends return
   }// ends render
 } // ends class

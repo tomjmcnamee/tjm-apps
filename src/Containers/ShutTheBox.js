@@ -134,7 +134,7 @@ render() {
       <div id="master-div">
         <h1>Shut The Box</h1>
         <DiceRoll rollHandler={this.rollHandler} newGameHandler={this.newGameHandler} gameOver={this.state.gameOver} board={this.state.board} readyToRoll={this.state.comboArray.length > 0} />
-        <div className="DivHoldingNumberTiles" >
+        <div id="DivHoldingNumberTiles" className="d-flex flex-wrap" >
           {this.numberTiles()} 
         </div>
       </div> // closes parent div

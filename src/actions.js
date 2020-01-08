@@ -67,8 +67,7 @@ function autoLogIn (history) {
       fetch( backendURL + "stb-guestrollhistory")
         .then(resp => resp.json())
         .then(response => {
-          if (response.status === "error") {
-            // alert("incorrect email/password combination")
+          if (!!response.error) {
             // history.push("/LogIn")
           } else {
             dispatch({ type: "SET USER ROLL SUM", payload: response.userRollSums })
@@ -92,9 +91,8 @@ function autoLogIn (history) {
       })
         .then(resp => resp.json())
         .then(response => {
-          if (response.status === "error") {
-            // alert("incorrect email/password combination")
-            // history.push("/LogIn")
+          if (!!response.error) {
+            localStorage.removeItem("token")
           } else {
             dispatch({ type: "AUTO LOG USER IN", payload: response.userObj })
             dispatch({ type: "SET USER ROLL SUM", payload: response.userRollSums })
@@ -114,7 +112,7 @@ function autoLogIn (history) {
       fetch( backendURL + "stb-guestrollhistory")
         .then(resp => resp.json())
         .then(response => {
-          if (response.status === "error") {
+          if (!!response.error) {
             // alert("incorrect email/password combination")
             // history.push("/LogIn")
           } else {
@@ -225,73 +223,6 @@ return function (dispatch) {
 
 
 function stb_commitLosingGameToHistory (userId, gameDiceRolls, gameDiceSums, die1, die2) {
-  let number = ""
-  switch(die1 + die2) {
-    case 2: number = "two"
-      break;
-    case 3: number = "three"
-      break;
-    case 4: number = "four"
-      break;
-    case 5: number = "five"
-      break;
-    case 6: number = "six"
-      break;
-    case 7: number = "seven"
-      break;
-    case 8: number = "eight"
-      break;
-    case 9: number = "nine"
-      break;
-    case 10: number = "ten"
-      break;
-    case 11: number = "eleven"
-      break;
-    case 12: number = "twelve"
-      break;
-    default: ;
-  }
-
-  let dienum1 = ""
-  let dienum2 = ""
-  let rolls = {}
-  switch (die1) {
-    case 1: dienum1 = "one"
-      break;
-    case 2: dienum1 = "two"
-      break;
-    case 3: dienum1 = "three"
-      break;
-    case 4: dienum1 = "four"
-      break;
-    case 5: dienum1 = "five"
-      break;
-    case 6: dienum1 = "six"
-      break;
-    default: ;
-  } // ends die1 switch statement
-  if (die1 === die2) {
-    rolls = {...gameDiceRolls, [dienum1]: gameDiceRolls[dienum1] + 2}
-  }  else {
-    switch (die2) {
-      case 1: dienum2 = "one"
-        break;
-      case 2: dienum2 = "two"
-        break;
-      case 3: dienum2 = "three"
-        break;
-      case 4: dienum2 = "four"
-        break;
-      case 5: dienum2 = "five"
-        break;
-      case 6: dienum2 = "six"
-        break;
-      default: ;
-      } // ends Switch for Die2
-      rolls = {...gameDiceRolls, [dienum1]: gameDiceRolls[dienum1] + 1, [dienum2]: gameDiceRolls[dienum2] + 1}
-  } /// ends ELSE statement
-
-  let sums = {...gameDiceSums, [number]: gameDiceSums[number] + 1, totalRolls: gameDiceSums["totalRolls"] + 1}
   let game = {wins: 0, losses: 1}
   return function (dispatch) {
   fetch(backendURL + "stb-commitgame", {
@@ -300,9 +231,6 @@ function stb_commitLosingGameToHistory (userId, gameDiceRolls, gameDiceSums, die
       "content-type": "application/json",
       accepts: "application/json"
     },
-    // The below commented line is the ONLY part that uses the above SWITCH and IF logic since the final roll in any loss was not getting contributed to the DB
-    //  however, no the final roll IS getting contributed so it is being sent to the DB as a duplicate.  The new BODY line corrects it by sending it only once.
-    // body: JSON.stringify({ user_id: userId, shut_the_box_game: game, shut_the_box_dice_roll: rolls, shut_the_box_roll_sum: sums })
     body: JSON.stringify({ user_id: userId, shut_the_box_game: game, shut_the_box_dice_roll: gameDiceRolls, shut_the_box_roll_sum: gameDiceSums })
   })
     .then(resp => resp.json())

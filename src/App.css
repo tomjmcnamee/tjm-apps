@@ -32,45 +32,48 @@
 .App-link {
   color: #09d3ac;
 }
-
- 
-  /* #NumberTilesDiv {
-    height: 10px;
-  } */
+/* #NumberTilesDiv {
+  height: 10px;
+} */
 
 .NumberTile {
   position: relative;
   text-align: center;
   font-size: 100px;
-  display: table-cell;
-  float: left;
-  width: 8%;
+  margin: 1px
+  /* display: table-cell; */
+  /* float: left; */
+  /* width: 8%; */
 	/* border: 1px solid brown; */
 }
 
 .NumberTile img{
-  height: 2em;
+  height: 100%;
   width: 1em;
+  /* margin: 10%; */
+  border: 2px solid brown;
 }
 
 
 
 .TileNumberText {
   position: absolute;
+  height: 90%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: black;
-
+  cursor: pointer;
 }
 
 .NotValidOption {
   position: absolute;
+  height: 90%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: red;
-
+  
 }
 
 .StatSingleDiceContainer p {
@@ -98,3 +101,26 @@
   border-color: white;
   border-style: solid;
 }
+
+  /* .DivHoldingNumberTiles {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .DivHoldingNumberTiles > div{
+    flex-wrap: wrap;
+  } */
+
+  @media only screen and (max-width: 376px) {
+    
+    html{ display: flex; flex-direction: column; }
+    #gameoptions { order: 1; }
+    #dice { order: 2; }
+    #DivHoldingNumberTiles { order: 3; }
+    #RollStats { order: 4; }
+    
+    #RollStats {
+    display: none;
+    }
+    
+    }
+ 
