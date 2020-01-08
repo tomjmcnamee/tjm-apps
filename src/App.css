@@ -130,15 +130,16 @@
     }
 
     #dice img {
-      height: 35%;
+      height: 51%;
+      width: 51%;
     }
 
     #diceroll_parent {
-      max-height: 230px;
+      max-height: 240px;
       height: 100%;
     }
 
-    #MobileHide {
+    .MobileHide {
       display: none;
     }
     
