@@ -125,8 +125,21 @@
     .NumberTile {
       position: relative;
       text-align: center;
-      font-size: 80px;
+      font-size: 75px;
       margin: 1px
+    }
+
+    #dice img {
+      height: 35%;
+    }
+
+    #diceroll_parent {
+      max-height: 230px;
+      height: 100%;
+    }
+
+    #MobileHide {
+      display: none;
     }
     
     }

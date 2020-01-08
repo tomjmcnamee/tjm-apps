@@ -186,7 +186,7 @@ render() {
                   :
                   <>
                   <button type="button" className="btn btn-primary btn-lg" onKeyDown={(e) => this.onKeyPressedRoll(e)} tabIndex="0" onClick={this.rollDiceClickHandler}>Click To Roll The Dice</button>
-                  <h5>*or hit spacebar*</h5>
+                  <h5 id="MobileHide" >*or hit spacebar*</h5>
 
                   </>
             }
