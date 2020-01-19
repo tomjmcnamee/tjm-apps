@@ -9,9 +9,9 @@ import { stb_commitLosingGameToHistory, stb_commitWinningGameToHistory } from '.
 
 class ShutTheBoxSimulator extends React.Component {
   state = {
-    higherThanThisNumber: 0,
+    higherThanThisNumber: 7,
     innerOrOuter: "inner",
-    numberOfRounds: 1
+    numberOfRounds: 500000
   }
 
   componentDidMount(){
@@ -36,7 +36,7 @@ render() {
         <form >
           <h4>How many games do you want to simulate?<input className="custom-range" type="range" name="numberOfRounds" min="1" max="1000000"  onChange={this.fieldChangeHandler} value={this.state.numberOfRounds}/> {this.state.numberOfRounds}</h4>
           <br />
-          <h4>All roll sums above which number should prioritize flipping over 1 tile, as opposed to two tiles?<input className="custom-range" type="range" name="higherThanThisNumber" min="0" max="12"  onChange={this.fieldChangeHandler} value={this.state.higherThanThisNumber}/> {this.state.higherThanThisNumber}</h4>
+          <h4>At what RollSum number should the first option be flipping over a single tile?<input className="custom-range" type="range" name="higherThanThisNumber" min="1" max="12"  onChange={this.fieldChangeHandler} value={this.state.higherThanThisNumber}/> {this.state.higherThanThisNumber}</h4>
           <br />
           <h4>When flipping over 2 tiles, should the priority be to flip the INNER pair or to flip the OUTER pair?<br/>For example, if the roll is 5, the Inner pair is 2&3, the Outer pair is 1&4</h4>
             <label>
