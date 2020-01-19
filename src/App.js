@@ -2,6 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom'
 import './App.css';
 import ShutTheBox from './Containers/ShutTheBox'
+import ShutTheBoxSimulator from './Containers/ShutTheBoxSimulator'
 import TopMenuBar from './Containers/TopMenuBar'
 import SignUp from './Components/Signup'
 import LogIn from './Components/Login'
@@ -20,6 +21,7 @@ class App extends React.Component {
         <Route path='/LogIn' component={localStorage.token === undefined ? LogIn : null} />
         <Route path="/SignUp" component={SignUp} />
         <Route path="/ShutTheBox" component={ShutTheBox} />
+        <Route path="/STB-Simulator" component={ShutTheBoxSimulator} />
         <Route exact path="/" component={ShutTheBox} />
       </div>
     )  // closes Return
