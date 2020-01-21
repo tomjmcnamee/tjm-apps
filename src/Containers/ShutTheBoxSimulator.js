@@ -1,17 +1,13 @@
 import React from 'react';
-import CreateNumberTile from '../Components/stb-createNumberTile'
 import { connect } from 'react-redux'
-import { stb_commitLosingGameToHistory, stb_commitWinningGameToHistory } from '../actions'
-
-
-
-
+import { stb_runSimulationWithVariables } from '../actions'
+import  GridBuilder  from '../Components/GridBuilder'
 
 class ShutTheBoxSimulator extends React.Component {
   state = {
+    numberOfGames: 500000,
     higherThanThisNumber: 7,
-    innerOrOuter: "inner",
-    numberOfRounds: 500000
+    innerOrOuter: "inner"
   }
 
   componentDidMount(){
@@ -24,19 +20,32 @@ class ShutTheBoxSimulator extends React.Component {
     })
 }
 
+  submitHandler = (event) => {
+    event.preventDefault()
+    
+    // console.log(event.target)
+    this.props.stb_runSimulationWithVariables(this.state.numberOfGames, this.state.higherThanThisNumber, this.state.innerOrOuter)
+  }
 
 
 render() {
+
+  let simulationRoundResultsGrid
+  simulationRoundResultsGrid = <GridBuilder 
+                      gridType="simulationRoundResults"
+                      gridLinesHash={this.props.stb_simulatorRound}
+                      />
+
 
   
     return(
 
       <div id="master-div">
         <h1>Shut The Box</h1>
-        <form >
-          <h4>How many games do you want to simulate?<input className="custom-range" type="range" name="numberOfRounds" min="1" max="1000000"  onChange={this.fieldChangeHandler} value={this.state.numberOfRounds}/> {this.state.numberOfRounds}</h4>
+        <form onSubmit={this.submitHandler}>
+          <h4>How many games do you want to simulate?<input className="custom-range" type="range" name="numberOfGames" min="1" max="1000000"  onChange={this.fieldChangeHandler} value={this.state.numberOfGames}/> {this.state.numberOfGames}</h4>
           <br />
-          <h4>At what RollSum number should the first option be flipping over a single tile?<input className="custom-range" type="range" name="higherThanThisNumber" min="1" max="12"  onChange={this.fieldChangeHandler} value={this.state.higherThanThisNumber}/> {this.state.higherThanThisNumber}</h4>
+          <h4>At what RollSum number should the priority be to flipping over a single tile?<input className="custom-range" type="range" name="higherThanThisNumber" min="1" max="12"  onChange={this.fieldChangeHandler} value={this.state.higherThanThisNumber}/> {this.state.higherThanThisNumber}</h4>
           <br />
           <h4>When flipping over 2 tiles, should the priority be to flip the INNER pair or to flip the OUTER pair?<br/>For example, if the roll is 5, the Inner pair is 2&3, the Outer pair is 1&4</h4>
             <label>
@@ -49,7 +58,9 @@ render() {
                 Outer
             </label>
           <br />
+          <button tpye="submit" >Run Simulator</button>
         </form>
+        {simulationRoundResultsGrid}
       </div> // closes parent div
     ) // closes RETURN
   } //closes RENDER
@@ -58,14 +69,14 @@ render() {
 }  // closes APP
 function mdp(dispatch) { 
   return { 
-    stb_runSimulationWithVariables: (a, b, c,die1, die2) => dispatch(stb_commitLosingGameToHistory(a, b, c, die1, die2)),
+    stb_runSimulationWithVariables: (numberOfGames, higherThanThisNumber, innerOrOuter) => dispatch(stb_runSimulationWithVariables(numberOfGames, higherThanThisNumber, innerOrOuter)),
+    
   }
 }
 
 function msp(state) { return { 
   loggedInUserObj: state.loggedInUserObj,
-  stb_gameDiceRolls: state.stb_gameDiceRolls,
-  stb_gameRollSums: state.stb_gameRollSums,
+  stb_simulatorRound: state.stb_simulatorRound,
 }}
 
 export default connect(msp, mdp)(ShutTheBoxSimulator)

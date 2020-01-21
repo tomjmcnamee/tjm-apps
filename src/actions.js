@@ -272,6 +272,31 @@ function stb_commitWinningGameToHistory (userId, gameDiceRolls, gameDiceSums) {
 } // ends stb_commitWinningGameToHistory funciton
 
 
+function stb_runSimulationWithVariables(numberOfGames, higherThanThisNumber, innerOrOuter) {
+  return function (dispatch) {
+    dispatch({ type: "UNSET SIMULATOR ROUND RESULTS" })
+    fetch(backendURL + "stb-RunStbSimulator", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        accepts: "application/json"
+      },
+      body: JSON.stringify({ numberOfGames: numberOfGames, higherThanThisNumber: higherThanThisNumber, innerOrOuter: innerOrOuter})
+    })
+    .then(resp => resp.json())
+    .then(response => {
+      if (response.errors) {
+        alert(response.errors)
+      } else {
+        // console.log("response = ", response)
+        const simulatorRoundResults = {numberOfGames: parseInt(numberOfGames, 10), singleTileAbove: higherThanThisNumber, innerOrOuter: innerOrOuter, numberOfWins: response.gameResults.wins, numberOfLosses: response.gameResults.losses}
+        console.log(simulatorRoundResults)
+        dispatch({ type: "SET SIMULATOR ROUND RESULTS", payload: simulatorRoundResults })
+      }
+    })
+  }  // Ends stb_commitLosingGameToHistory THUNK function
+}
+
 
 export { 
   signUp,
@@ -282,4 +307,5 @@ export {
   stb_DiceRoll,
   stb_commitLosingGameToHistory,
   stb_commitWinningGameToHistory,
+  stb_runSimulationWithVariables
 }
