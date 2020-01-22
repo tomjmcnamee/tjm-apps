@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import Randomizer from 'react-randomizer'
 import { stb_RollSum, stb_DiceRoll } from '../actions'
 import RollStats from './stb-RollStats'
@@ -177,6 +178,11 @@ render() {
                 <button type="button" className="btn btn-primary btn-lg btn-warning" onKeyDown={(e) => this.onKeyPressedRoll(e)} tabIndex="0" onClick={this.newGameClickHandler}>Start New Game</button>
                 {this.props.board.length > 0 ? <h1>You Lose!</h1> : null }
                 {this.props.board.length === 0 ? <h1>You WIN!</h1> : null }
+                <Link to="/STB-Simulator">
+                  <button type="button">
+                        Use The Simulator!
+                  </button>
+                </Link>
               </>
               :
                 this.props.readyToRoll 

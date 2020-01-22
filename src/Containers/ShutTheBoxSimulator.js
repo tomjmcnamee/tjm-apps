@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { stb_runSimulationWithVariables, stb_setSimulationHistory } from '../actions'
 import  GridBuilder  from '../Components/GridBuilder'
 
@@ -72,6 +73,11 @@ render() {
                 <span />
               <br />
               <button tpye="submit" >Run Simulator</button>
+              <Link to="/shutthebox">
+                  <button type="button">
+                        Go Back to the Game
+                  </button>
+                </Link>
             </form>
           </div>
           <div className="col">
