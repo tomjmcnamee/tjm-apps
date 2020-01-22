@@ -33,10 +33,16 @@ class ShutTheBoxSimulator extends React.Component {
 
 render() {
 
+  let loading = false
+  if (this.props.stb_simulatorRound.numberOfWins == undefined) {
+    loading = true
+  }
+
   let simulationRoundResultsGrid
   simulationRoundResultsGrid = <GridBuilder 
                       gridType="simulationRoundResults"
                       gridLinesHash={this.props.stb_simulatorRound}
+                      loading={loading}
                       />
 
   let simulationResultsHistoryGrid
@@ -50,7 +56,6 @@ render() {
 
 
     return(
-
       <div id="master-div">
         <h1>Shut The Box Simulator</h1>
         <div className="row">
@@ -72,9 +77,9 @@ render() {
                 </label>
                 <span />
               <br />
-              <button tpye="submit" >Run Simulator</button>
-              <Link to="/shutthebox">
-                  <button type="button">
+              <button type="submit" className="btn btn-primary btn-lg" >Run Simulator</button>
+                <Link to="/shutthebox">
+                  <button type="button" className="btn btn-primary btn-lg">
                         Go Back to the Game
                   </button>
                 </Link>

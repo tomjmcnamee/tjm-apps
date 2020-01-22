@@ -1,5 +1,10 @@
 import React from 'react'
 import GridLinesBuilder from './GridLinesBuilder'
+import LoadingDice from '../images/LoadingDice.gif'
+import LoadingDice2 from '../images/LoadingDice2.gif'
+import LoadingDice3 from '../images/LoadingDice3.gif'
+import LoadingDice4 from '../images/LoadingDice4.gif'
+
 
 class GridBuilder extends React.Component {
 
@@ -14,6 +19,7 @@ class GridBuilder extends React.Component {
                                 />
           // } // ends GridLines IF statement
           return(
+          <>
             <table className="ui celled table">
               <colgroup>
                 <col id="firstCol"/>
@@ -38,6 +44,27 @@ class GridBuilder extends React.Component {
                 </tr>
               </tfoot> */}
             </table>
+            <div id="LoadingIcon">
+              {this.props.loading ? 
+                // <Loader
+                //   type="CradleLoader"
+                //   color="#00BFFF"
+                //   height={100}
+                //   width={100}
+                //   timeout={30000} //30 secs
+                // />
+                <>
+                <img src={LoadingDice} alt="LoadingDice" />
+                <img src={LoadingDice2} alt="LoadingDice2" />
+                <img src={LoadingDice3} alt="LoadingDice3" />
+                <img src={LoadingDice4} alt="LoadingDice4" />
+                <img src={LoadingDice} alt="LoadingDice" />
+                </>
+                :
+                null
+              }
+            </div>
+          </>
           ) // ends "simulationRoundResults" RETURN
         // break 
       case "simulationResultsHistoryGrid":
@@ -58,7 +85,7 @@ class GridBuilder extends React.Component {
               <thead>
                 <tr>
                   <th>Inner or{<br />}Outer Pair</th>
-                  <th>Flip available Single{<br />}Tile above this number</th>
+                  <th>Prioritize single{<br />}tile above</th>
                   <th>Total{<br />}Games</th>
                   <th>Wins</th>
                   <th>Losses</th>
@@ -75,6 +102,7 @@ class GridBuilder extends React.Component {
                 </tr>
               </tfoot> */}
             </table>
+
           ) // ends "EXAMPLE" RETURN
         // break 
       default:

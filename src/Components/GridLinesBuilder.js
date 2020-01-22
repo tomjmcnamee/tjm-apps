@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 
 
 
+
 class GridLinesBuilder extends React.Component {
 
   markWishlistItemAsPurchased = ( event) => {
@@ -74,16 +75,16 @@ class GridLinesBuilder extends React.Component {
             return(
               <>
             <tr >
-              <th>Outer or Inner pair</th>
-              <td data-label="SumPairChoice" >{this.stbSimulationResultsProcessing().resInOrOut}</td>
+              <th>Total Games</th>
+              <td data-label="TotalGames"  >{this.stbSimulationResultsProcessing().resNumberOfGames}</td>
             </tr>
             <tr >
-              <th>Prioritize single tile over</th>
+              <th>Prioritize single tile above</th>
               <td  data-label="PrioritizeSingleTileOver"  >{this.stbSimulationResultsProcessing().resSingle_tile_above_number}</td>
             </tr>
             <tr >
-              <th>Total Games</th>
-              <td data-label="TotalGames"  >{this.stbSimulationResultsProcessing().resNumberOfGames}</td>
+              <th>Outer or Inner pair</th>
+              <td data-label="SumPairChoice" >{this.stbSimulationResultsProcessing().resInOrOut}</td>
             </tr>
             <tr >
               <td colSpan="2"></td>
