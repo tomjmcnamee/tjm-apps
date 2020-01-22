@@ -272,7 +272,7 @@ function stb_commitWinningGameToHistory (userId, gameDiceRolls, gameDiceSums) {
 } // ends stb_commitWinningGameToHistory funciton
 
 
-function stb_runSimulationWithVariables(numberOfGames, higherThanThisNumber, innerOrOuter) {
+function stb_runSimulationWithVariables(numberOfGames, higherThanThisNumber, innerOrOuter, startTime) {
   return function (dispatch) {
     dispatch({ type: "UNSET SIMULATOR ROUND RESULTS" })
     fetch(backendURL + "stb-RunStbSimulator", {
@@ -288,13 +288,31 @@ function stb_runSimulationWithVariables(numberOfGames, higherThanThisNumber, inn
       if (response.errors) {
         alert(response.errors)
       } else {
-        // console.log("response = ", response)
-        const simulatorRoundResults = {numberOfGames: parseInt(numberOfGames, 10), singleTileAbove: higherThanThisNumber, innerOrOuter: innerOrOuter, numberOfWins: response.gameResults.wins, numberOfLosses: response.gameResults.losses}
-        console.log(simulatorRoundResults)
+        console.log("response = ", response)
+        const simulatorRoundResults = {games: parseInt(numberOfGames, 10), single_tile_above_number: higherThanThisNumber, innerOrOuter: innerOrOuter, numberOfWins: response.gameResults.wins, numberOfLosses: response.gameResults.losses}
+        // console.log(simulatorRoundResults)
         dispatch({ type: "SET SIMULATOR ROUND RESULTS", payload: simulatorRoundResults })
+        dispatch({ type: "SET SIMULATOR HISTORY RESULTS", payload: response.allHistoryData })
+        console.log("Processing Time = ", ((+ new Date()) - startTime)/1000 )
       }
     })
-  }  // Ends stb_commitLosingGameToHistory THUNK function
+  }  // Ends stb_runSimulationWithVariables THUNK function
+}
+
+
+function stb_setSimulationHistory(numberOfGames, higherThanThisNumber, innerOrOuter) {
+  return function (dispatch) {
+    fetch(backendURL + "stb-RunStbSimulator")
+    .then(resp => resp.json())
+    .then(response => {
+      console.log(response)
+      if (response.errors) {
+        alert(response.errors)
+      } else {
+        dispatch({ type: "SET SIMULATOR HISTORY RESULTS", payload: response.allHistoryData })
+      }
+    })
+  }  // Ends stb_setSimulationHistory THUNK function
 }
 
 
@@ -307,5 +325,6 @@ export {
   stb_DiceRoll,
   stb_commitLosingGameToHistory,
   stb_commitWinningGameToHistory,
-  stb_runSimulationWithVariables
+  stb_runSimulationWithVariables,
+  stb_setSimulationHistory
 }

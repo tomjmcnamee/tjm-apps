@@ -14,8 +14,8 @@ let defaultState = {
 //   stb_simulatorRoundRollSums: {two: 0,three: 0,four: 0,five: 0,six: 0,seven: 0,eight: 0,nine: 0,ten: 0,eleven: 0,twelve: 0,totalRolls: 0  },
 //   stb_simulatorHistoryDiceRolls: {one: 0,two: 0,three: 0,four: 0,five: 0,six: 0},
 //   stb_simulatorHistoryRollSums: {two: 0,three: 0,four: 0,five: 0,six: 0,seven: 0,eight: 0,nine: 0,ten: 0,eleven: 0,twelve: 0,totalRolls: 0  },
-  stb_simulatorRound: {numberOfGames: 0, singleTileAbove: 0, innerOrOuter: "inner", numberOfWins: 0, numberOfLosses: 0},
-  stb_simulatorHistory: {}
+  stb_simulatorRound: {numberOfGames: 0, single_tile_above_number: 0, innerOrOuter: "inner", numberOfWins: 0, numberOfLosses: 0},
+  stb_simulatorHistory: []
 }
 
 
@@ -134,6 +134,16 @@ function stb_simulatorRoundReducer(state = defaultState.stb_simulatorRound, acti
 } // ends stb_allRollSumsReducer
 
 
+function stb_simulatorHistoryReducer(state = defaultState.stb_simulatorHistory, action) {
+  switch (action.type) {
+      case "SET SIMULATOR HISTORY RESULTS":
+          return action.payload
+      default:
+          return state
+  }
+} // ends stb_allRollSumsReducer
+
+
 
 
 
@@ -147,7 +157,8 @@ let reducer = combineReducers({
   stb_userRollSums: stb_userRollSumsReducer,
   stb_allDiceRolls: stb_allDiceRollsReducer,
   stb_allRollSums: stb_allRollSumsReducer,
-  stb_simulatorRound: stb_simulatorRoundReducer
+  stb_simulatorRound: stb_simulatorRoundReducer,
+  stb_simulatorHistory: stb_simulatorHistoryReducer
 })
 
 export default reducer
