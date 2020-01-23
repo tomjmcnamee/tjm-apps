@@ -20,30 +20,15 @@ class GridBuilder extends React.Component {
           // } // ends GridLines IF statement
           return(
           <>
-            <table className="ui celled table">
-              <colgroup>
-                <col id="firstCol"/>
-                <col span="11" className="dayCols"  />
-              </colgroup>
-              {/* <thead>
-                <tr>
-                  <th>Outer or Inner pair</th>
-                  <th>Prioritize single tile over</th>
-                  <th>Total Games</th>
-                  <th>Total Wins</th>
-                  <th>Total Loses</th>
-                  <th>Win Percentage</th>
-                </tr>
-              </thead> */}
-              <tbody>
-                {GridLines}
-              </tbody>
-              {/* <tfoot>
-                <tr>
-                  <td colSpan="11">These are all the campaigns you've supported</td>
-                </tr>
-              </tfoot> */}
-            </table>
+            <div id="SimulatorResultsGrid">
+              <table className="ui celled table">
+                <col width="80" />
+                <col width="80" />
+                <tbody>
+                  {GridLines}
+                </tbody>
+              </table>
+            </div>
             <div id="LoadingIcon">
               {this.props.loading ? 
                 // <Loader
@@ -77,7 +62,7 @@ class GridBuilder extends React.Component {
                                           />)
           } // ends GridLines IF statement
           return(
-            <table className="ui celled table">
+            <table className="ui celled table table-sm table-striped" >
               <colgroup>
                 <col id="firstCol"/>
                 <col span="11" className="dayCols"  />

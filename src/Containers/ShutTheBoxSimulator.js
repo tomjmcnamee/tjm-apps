@@ -59,7 +59,7 @@ render() {
       <div id="master-div">
         <h1>Shut The Box Simulator</h1>
         <div className="row">
-          <div className="col">
+          <div className="col" id="SimulatorOptionsDiv">
             <h2>Simulation Options</h2>
             <form onSubmit={this.submitHandler}>
               <h4>How many games do you want to simulate?<input className="custom-range" type="range" name="numberOfGames" min="1" max="500000"  onChange={this.fieldChangeHandler} value={this.state.numberOfGames}/>{parseInt(this.state.numberOfGames, 10).toLocaleString()}</h4>
@@ -77,7 +77,12 @@ render() {
                 </label>
                 <span />
               <br />
-              <button type="submit" className="btn btn-primary btn-lg" >Run Simulator</button>
+              { this.props.stb_simulatorRound.numberOfWins == undefined 
+              ? 
+                <button className="btn btn-primary btn-lg" >*** running ***</button>
+              :
+                <button type="submit" className="btn btn-primary btn-lg" >Run Simulator</button>
+              }
                 <Link to="/shutthebox">
                   <button type="button" className="btn btn-primary btn-lg">
                         Go Back to the Game
@@ -85,7 +90,7 @@ render() {
                 </Link>
             </form>
           </div>
-          <div className="col">
+          <div className="col" id="SimResultsAndLoadwerDIVS">
             <h2>Simulation Results</h2>
             {simulationRoundResultsGrid}
           </div>

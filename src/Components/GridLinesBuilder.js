@@ -74,32 +74,32 @@ class GridLinesBuilder extends React.Component {
         case "simulationRoundResults":
             return(
               <>
-            <tr >
-              <th>Total Games</th>
-              <td data-label="TotalGames"  >{this.stbSimulationResultsProcessing().resNumberOfGames}</td>
+            <tr className="left aligned">
+              <th className="text-right" >Total Games</th>
+              <td className="text-left" data-label="TotalGames"  >{this.stbSimulationResultsProcessing().resNumberOfGames}</td>
+            </tr>
+            <tr className="left aligned" >
+              <th className="text-right" >Prioritize single tile above</th>
+              <td className="text-left" >{this.stbSimulationResultsProcessing().resSingle_tile_above_number}</td>
             </tr>
             <tr >
-              <th>Prioritize single tile above</th>
-              <td  data-label="PrioritizeSingleTileOver"  >{this.stbSimulationResultsProcessing().resSingle_tile_above_number}</td>
-            </tr>
-            <tr >
-              <th>Outer or Inner pair</th>
-              <td data-label="SumPairChoice" >{this.stbSimulationResultsProcessing().resInOrOut}</td>
+              <th className="text-right" >Outer or Inner pair</th>
+              <td className="text-left" >{this.stbSimulationResultsProcessing().resInOrOut}</td>
             </tr>
             <tr >
               <td colSpan="2"></td>
             </tr>
             <tr >
-              <th>Total Wins</th>
-              <td data-label="TotalWins"  >{this.stbSimulationResultsProcessing().resNumberOfWins}</td>
+              <th className="text-right" >Total Wins</th>
+              <td className="text-left" >{this.stbSimulationResultsProcessing().resNumberOfWins}</td>
             </tr>
             <tr >
-              <th>Total Loses</th>
-              <td data-label="TotalLosses"  >{this.stbSimulationResultsProcessing().resNumberOfLosses}</td>
+              <th className="text-right" >Total Loses</th>
+              <td className="text-left" >{this.stbSimulationResultsProcessing().resNumberOfLosses}</td>
             </tr>
             <tr >
-              <th>Win Percentage</th>
-              <td data-label="WinPercentage"  >{this.stbSimulationResultsProcessing().resWinPercentage}</td>
+              <th className="text-right" >Win Percentage</th>
+              <td className="text-left" >{this.stbSimulationResultsProcessing().resWinPercentage}</td>
             </tr>
             </>
             )  // ends "Campaigns You've Supported" RETURN

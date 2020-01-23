@@ -121,6 +121,11 @@
     #dice { order: 2; }
     #DivHoldingNumberTiles { order: 3; }
     #RollStats { order: 4; }
+
+    #SimResultsAndLoadwerDIVS{ display: flex; flex-direction: column; }
+    #LoadingIcon { order: 5; }
+    #SimulatorResultsGrid { order: 6; }
+
     
     #RollStats {
     display: none;
