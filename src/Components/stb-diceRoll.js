@@ -179,7 +179,7 @@ render() {
                 {this.props.board.length > 0 ? <h1>You Lose!</h1> : null }
                 {this.props.board.length === 0 ? <h1>You WIN!</h1> : null }
                 <Link to="/STB-Simulator">
-                  <button type="button">
+                  <button type="button" className="btn btn-primary btn-lg">
                         Use The Simulator!
                   </button>
                 </Link>

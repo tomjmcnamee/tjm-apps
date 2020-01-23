@@ -34,7 +34,7 @@ class ShutTheBoxSimulator extends React.Component {
 render() {
 
   let loading = false
-  if (this.props.stb_simulatorRound.numberOfWins == undefined) {
+  if (this.props.stb_simulatorRound.numberOfWins === undefined) {
     loading = true
   }
 
@@ -77,7 +77,7 @@ render() {
                 </label>
                 <span />
               <br />
-              { this.props.stb_simulatorRound.numberOfWins == undefined 
+              { this.props.stb_simulatorRound.numberOfWins === undefined 
               ? 
                 <button className="btn btn-primary btn-lg" >*** running ***</button>
               :

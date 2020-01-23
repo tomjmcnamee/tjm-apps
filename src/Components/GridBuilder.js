@@ -22,8 +22,10 @@ class GridBuilder extends React.Component {
           <>
             <div id="SimulatorResultsGrid">
               <table className="ui celled table">
-                <col width="80" />
-                <col width="80" />
+                <colgroup>
+                  <col width="80" />
+                  <col width="80" />
+                </colgroup>
                 <tbody>
                   {GridLines}
                 </tbody>
