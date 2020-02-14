@@ -13,7 +13,7 @@ class ShutTheBox extends React.Component {
     board: [1,2,3,4,5,6,7,8,9,10,11,12],
     comboArray: [],
     rollSum: 0,
-    gameOver: false,
+    gameOver: true,
     gameWon: false
   }
   componentDidMount(){
@@ -133,7 +133,7 @@ render() {
 
       <div id="master-div">
         <h1>Shut The Box</h1>
-        <DiceRoll rollHandler={this.rollHandler} newGameHandler={this.newGameHandler} gameOver={this.state.gameOver} board={this.state.board} readyToRoll={this.state.comboArray.length > 0} />
+        <DiceRoll rollHandler={this.rollHandler} newGameHandler={this.newGameHandler} gameOver={this.state.gameOver} board={this.state.board} readyToRoll={this.state.comboArray.length > 0} rollSum={this.state.rollSum} />
         <div id="DivHoldingNumberTiles" className="d-flex flex-wrap" >
           {this.numberTiles()} 
         </div>

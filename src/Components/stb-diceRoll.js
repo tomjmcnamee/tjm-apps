@@ -122,6 +122,7 @@ newGameClickHandler = () => {
     totalRolls: 0
   })
   this.props.newGameHandler()
+  // this.rollDiceClickHandler()
 }
 
 //--- THESE NEXT 3 METHODS ARE FOR THE SPACEBAR KEYPRESS
@@ -147,6 +148,14 @@ onKeyPressedNewGame(e) {
 }
 //---- PREVIOUS THREE MEHTODS FOR SPACEBAR KEYPRESS
 
+sumulatorButton() {
+  return  <Link to="/STB-Simulator">
+            <button type="button" className="btn btn-primary btn-lg">
+                  Use The Simulator!
+            </button>
+          </Link>
+}
+
 
 render() {
   let Dimage1 = <img src={this.state.die1 === 1 ? D1 :
@@ -163,7 +172,7 @@ render() {
     this.state.die2 === 6 ? D6 : D0} alt="" />
 
 
-
+ 
 
 
   
@@ -174,16 +183,19 @@ render() {
             {this.props.gameOver
               ?
               // <button type="button" className="btn btn-primary btn-lg" disabled >Roll The Dice</button>
-               <>
+               this.props.rollSum === 0 
+               ?
+                <>
                 <button type="button" className="btn btn-primary btn-lg btn-warning" onKeyDown={(e) => this.onKeyPressedRoll(e)} tabIndex="0" onClick={this.newGameClickHandler}>Start New Game</button>
-                {this.props.board.length > 0 ? <h1>You Lose!</h1> : null }
-                {this.props.board.length === 0 ? <h1>You WIN!</h1> : null }
-                <Link to="/STB-Simulator">
-                  <button type="button" className="btn btn-primary btn-lg">
-                        Use The Simulator!
-                  </button>
-                </Link>
-              </>
+                {this.sumulatorButton()}
+                </>
+               :
+                <>
+                  <button type="button" className="btn btn-primary btn-lg btn-warning" onKeyDown={(e) => this.onKeyPressedRoll(e)} tabIndex="0" onClick={this.newGameClickHandler}>Start New Game</button>
+                  {this.props.board.length > 0 ? <h1>You Lose!</h1> : null }
+                  {this.props.board.length === 0 ? <h1>You WIN!</h1> : null }
+                  {this.sumulatorButton()}
+                </>
               :
                 this.props.readyToRoll 
                   ?
