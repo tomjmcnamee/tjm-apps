@@ -64,7 +64,7 @@ render() {
             <form onSubmit={this.submitHandler}>
               <h4>How many games do you want to simulate?<input className="custom-range" type="range" name="numberOfGames" min="1" max="500000"  onChange={this.fieldChangeHandler} value={this.state.numberOfGames}/>{parseInt(this.state.numberOfGames, 10).toLocaleString()}</h4>
               <br />
-              <h4>At what RollSum number should the priority be flipping over a single tile?<input className="custom-range" type="range" name="higherThanThisNumber" min="1" max="12"  onChange={this.fieldChangeHandler} value={this.state.higherThanThisNumber}/> {this.state.higherThanThisNumber}</h4>
+              <h4>At what RollSum number should the priority be flipping over a single tile?<input className="custom-range" type="range" name="higherThanThisNumber" min="2" max="12"  onChange={this.fieldChangeHandler} value={this.state.higherThanThisNumber}/> {this.state.higherThanThisNumber}</h4>
               <br />
               <h4>When flipping over 2 tiles, should the priority be to flip the INNER pair or to flip the OUTER pair?<br/>For example, if the roll is 5, the Inner pair is 2&3, the Outer pair is 1&4</h4>
                 <label>
